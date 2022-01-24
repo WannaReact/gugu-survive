@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -22,6 +23,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.png$/,
+        use: ['file-loader']
       }
     ]
   },
@@ -32,6 +37,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css'
     }),
+    new RefreshWebpackPlugin(),
     new CleanWebpackPlugin()
   ],
   optimization: {

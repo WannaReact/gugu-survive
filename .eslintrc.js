@@ -24,9 +24,16 @@ module.exports = {
         endOfLine: 'auto'
       }
     ],
-    'react/react-in-jsx-scope': 'off',
+    'func-names': 'off',
+    'import/extensions': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
     'no-case-declarations': 'off',
-    'no-shadow': 'off'
+    'no-console': 'off',
+    'no-shadow': 'off',
+    'no-unused-vars': 'warn',
+    'react/react-in-jsx-scope': 'off',
+    'spaced-comment': 'off'
   },
   root: true
 };

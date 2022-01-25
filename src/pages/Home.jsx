@@ -3,7 +3,6 @@ import Title from '../components/Title.jsx';
 import UtilButton from '../components/buttons/UtilButton.jsx';
 import SIZE from '../constants/size';
 import COLOR from '../constants/color';
-import MEDIA_QUERY_END_POINT from '../constants/media-query';
 
 const Container = styled.div`
   width: ${SIZE.CONTAINER.width};
@@ -11,11 +10,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  padding-top: 106px;
-  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    padding-top: 184px;
-  }
 `;
 
 const ButtonSection = styled.section`
@@ -28,13 +22,27 @@ const home = () => {
     <Container>
       <Title />
       <ButtonSection>
-        <UtilButton size={SIZE.BIG_BUTTON} color={COLOR.RED} text="게임시작" />
+        <UtilButton
+          size={SIZE.BIG_BUTTON}
+          color={COLOR.RED}
+          style={{ marginBottom: '23px' }}
+        >
+          게임 시작
+        </UtilButton>
         <UtilButton
           size={SIZE.BIG_BUTTON}
           color={COLOR.YELLOW}
-          text="게임설명"
-        />
-        <UtilButton size={SIZE.BIG_BUTTON} color={COLOR.BLUE} text="순위표" />
+          style={{ marginBottom: '23px' }}
+        >
+          게임 설명
+        </UtilButton>
+        <UtilButton
+          size={SIZE.BIG_BUTTON}
+          color={COLOR.BLUE}
+          style={{ marginBottom: '23px' }}
+        >
+          순위표
+        </UtilButton>
       </ButtonSection>
     </Container>
   );

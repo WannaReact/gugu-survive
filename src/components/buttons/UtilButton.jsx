@@ -20,9 +20,9 @@ const Button = styled.button`
   }
 `;
 
-const UtilButton = ({ size, color, text }) => {
+const UtilButton = ({ size, color, text, onClick }) => {
   return (
-    <Button size={size} color={color}>
+    <Button size={size} color={color} onClick={onClick}>
       {text}
     </Button>
   );
@@ -31,20 +31,21 @@ const UtilButton = ({ size, color, text }) => {
 UtilButton.propTypes = {
   size: propTypes.shape({
     DESKTOP: propTypes.shape({
-      width: propTypes.string,
-      height: propTypes.string,
-      fontSize: propTypes.string,
-      borderRadius: propTypes.string
+      width: propTypes.string.isRequired,
+      height: propTypes.string.isRequired,
+      fontSize: propTypes.string.isRequired,
+      borderRadius: propTypes.string.isRequired
     }),
     MOBILE: propTypes.shape({
-      width: propTypes.string,
-      height: propTypes.string,
-      fontSize: propTypes.string,
-      borderRadius: propTypes.string
+      width: propTypes.string.isRequired,
+      height: propTypes.string.isRequired,
+      fontSize: propTypes.string.isRequired,
+      borderRadius: propTypes.string.isRequired
     })
   }),
-  color: propTypes.string,
-  text: propTypes.string
+  color: propTypes.string.isRequired,
+  text: propTypes.string.isRequired,
+  onClick: propTypes.object
 };
 
 export default UtilButton;

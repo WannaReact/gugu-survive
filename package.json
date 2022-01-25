@@ -9,6 +9,7 @@
   "dependencies": {
     "prop-types": "^15.8.1",
     "express": "^4.17.2",
+    "mongoose": "^6.1.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.2.2",
@@ -24,6 +25,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "concurrently": "^7.0.0",
     "css-loader": "^6.5.1",
+    "dotenv": "^14.3.0",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",

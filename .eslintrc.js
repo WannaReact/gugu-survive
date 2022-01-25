@@ -31,7 +31,8 @@ module.exports = {
     'no-case-declarations': 'off',
     'no-console': 'off',
     'no-shadow': 'off',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'off',
+    'no-useless-return': 'off',
     'react/react-in-jsx-scope': 'off',
     'spaced-comment': 'off'
   },

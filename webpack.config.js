@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -6,12 +7,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: {
-    app: './src/index.jsx'
+    bundle: [
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+      './src/index.jsx'
+    ]
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -37,6 +43,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'style.css'
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new RefreshWebpackPlugin(),
     new CleanWebpackPlugin()
   ],
@@ -46,14 +53,6 @@ module.exports = {
         extractComments: false
       })
     ]
-  },
-  devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist')
-    },
-    port: 3000,
-    hot: true,
-    open: true
   },
   resolve: {
     extensions: ['.js', '.jsx']

@@ -2,11 +2,12 @@
   "name": "gugu-survive",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --progress --mode development",
+    "start": "concurrently --kill-others-on-fail \"nodemon server.js & webpack \"",
     "build": "webpack --mode production",
     "prepare": "husky install"
   },
   "dependencies": {
+    "express": "^4.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.2.2",
@@ -20,6 +21,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^7.0.0",
     "css-loader": "^6.5.1",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -33,12 +35,14 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.2.2",
     "mini-css-extract-plugin": "^2.5.2",
+    "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "react-refresh": "^0.11.0",
     "terser-webpack-plugin": "^5.3.0",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-middleware": "^5.3.0",
+    "webpack-hot-middleware": "^2.25.1"
   },
   "lint-staged": {
     "*.{js,jsx}": [

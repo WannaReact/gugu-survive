@@ -31,10 +31,9 @@ module.exports = {
     'no-case-declarations': 'off',
     'no-console': 'off',
     'no-shadow': 'off',
-    'no-unused-vars': 'off',
+    'no-underscore-dangle': 'off',
     'no-useless-return': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'spaced-comment': 'off'
+    'react/react-in-jsx-scope': 'off'
   },
   root: true
 };

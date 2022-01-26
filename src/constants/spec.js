@@ -1,4 +1,4 @@
-const SIZE = {
+const SPEC = {
   CONTAINER: {
     MOBILE: { width: '390px' },
     DESKTOP: { width: '770px' }
@@ -8,13 +8,13 @@ const SIZE = {
       width: '270px',
       height: '67px',
       fontSize: '45px',
+      fontFamily: 'Yeon-Sung',
       borderRadius: '10px'
     },
     DESKTOP: {
       width: '360px',
       height: '90px',
-      fontSize: '60px',
-      borderRadius: ' 10px'
+      fontSize: '60px'
     }
   },
   SMALL_BUTTON: {
@@ -22,13 +22,13 @@ const SIZE = {
       width: '121px',
       height: '34px',
       fontSize: '25px',
+      fontFamily: 'Yeon-Sung',
       borderRadius: '10px'
     },
     DESKTOP: {
       width: '180px',
       height: '50px',
-      fontSize: '36px',
-      borderRadius: '10px'
+      fontSize: '36px'
     }
   },
   INPUT_BUTTON: {
@@ -46,11 +46,14 @@ const SIZE = {
     }
   },
   NUM_PAD: {
-    width: '60px',
-    height: '60px',
-    fontSize: '50px',
-    borderRadius: '5px'
+    MOBILE: {
+      width: '60px',
+      height: '60px',
+      fontSize: '50px',
+      fontFamily: 'Acme',
+      borderRadius: '5px'
+    }
   }
 };
 
-export default SIZE;
+export default SPEC;

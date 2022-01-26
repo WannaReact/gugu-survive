@@ -14,12 +14,8 @@ const Button = styled.button`
   }
 `;
 
-const UtilButton = ({ size, color, text }) => {
-  return (
-    <Button size={size} color={color}>
-      {text}
-    </Button>
-  );
+const UtilButton = ({ children, ...rest }) => {
+  return <Button {...rest}>{children}</Button>;
 };
 
 UtilButton.propTypes = {
@@ -30,7 +26,8 @@ UtilButton.propTypes = {
     borderRadius: propTypes.string
   }),
   color: propTypes.string,
-  text: propTypes.string
+  children: propTypes.string,
+  onClick: propTypes.func
 };
 
 export default UtilButton;

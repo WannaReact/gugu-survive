@@ -5,7 +5,6 @@ import MEDIA_QUERY_END_POINT from '../../constants/media-query';
 const Button = styled.button`
   width: ${(props) => props.size.MOBILE.width};
   height: ${(props) => props.size.MOBILE.height};
-  margin-bottom: 23px;
   border-radius: ${(props) => props.size.MOBILE.borderRadius};
   background-color: ${(props) => props.color};
   font-family: 'Yeon-Sung';
@@ -13,19 +12,14 @@ const Button = styled.button`
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
     width: ${(props) => props.size.DESKTOP.width};
     height: ${(props) => props.size.DESKTOP.height};
-    margin-bottom: 42px;
     border-radius: ${(props) => props.size.DESKTOP.borderRadius};
     background-color: ${(props) => props.color};
     font-size: ${(props) => props.size.DESKTOP.fontSize};
   }
 `;
 
-const UtilButton = ({ size, color, text, onClick }) => {
-  return (
-    <Button size={size} color={color} onClick={onClick}>
-      {text}
-    </Button>
-  );
+const UtilButton = ({ children, ...rest }) => {
+  return <Button {...rest}>{children}</Button>;
 };
 
 UtilButton.propTypes = {
@@ -44,8 +38,8 @@ UtilButton.propTypes = {
     })
   }),
   color: propTypes.string.isRequired,
-  text: propTypes.string.isRequired,
-  onClick: propTypes.object
+  children: propTypes.string.isRequired,
+  onClick: propTypes.func
 };
 
 export default UtilButton;

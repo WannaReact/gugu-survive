@@ -14,8 +14,7 @@ const ProgressBar = styled.div`
   width: ${(props) => props.width};
   height: 30px;
   position: relative;
-  /* transition: 0.2s ease;
-  transition-delay: 0s; */
+  transition: 0.5s linear;
 
   &::before {
     content: '';
@@ -45,7 +44,13 @@ const ProgressBar = styled.div`
   }
 `;
 
+const TimeNumber = styled.p`
+  padding-left: 10px;
+  padding-top: 3px;
+`;
+
 const GameTimer = () => {
+  console.log('hi');
   const [value, setValue] = useState(3000);
 
   // useEffect(() => {
@@ -58,7 +63,7 @@ const GameTimer = () => {
   //     } else {
   //       clearInterval(timer);
   //     }
-  //   }, 10213);
+  //   }, 10);
   //   return () => clearInterval(timer);
   // }, [value]);
 
@@ -66,13 +71,12 @@ const GameTimer = () => {
     const timer = setInterval(() => {
       setValue((prev) => {
         if (prev > 0) {
-          console.log(prev);
-          return prev - 1;
+          return prev - 50;
         }
         clearInterval(timer);
         return 0;
       });
-    }, 10213);
+    }, 500);
     return () => clearInterval(timer);
   }, []);
 
@@ -85,13 +89,11 @@ const GameTimer = () => {
     });
     // value 100초과시 예외처리
   };
+
   return (
     <>
-      <Progress className="progress">
-        <ProgressBar
-          className="progress-bar"
-          width={`${(value / 3000) * 100}%`}
-        >
+      <Progress>
+        <ProgressBar width={`${(value / 3000) * 95 + 5}%`}>
           <TimeNumber>{`${value}`}</TimeNumber>
         </ProgressBar>
       </Progress>
@@ -101,8 +103,3 @@ const GameTimer = () => {
 };
 
 export default GameTimer;
-
-const TimeNumber = styled.p`
-  padding-left: 10px;
-  padding-top: 3px;
-`;

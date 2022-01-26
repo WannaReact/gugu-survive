@@ -13,10 +13,23 @@ const TableData = styled(Cell)`
   color: ${COLOR.BLACK};
 `;
 
+const getRank = (num) => {
+  switch (num) {
+    case 1:
+      return '🥇';
+    case 2:
+      return '🥈';
+    case 3:
+      return '🥉';
+    default:
+      return num;
+  }
+};
+
 const Record = ({ index, record: { username, score, round, combo } }) => {
   return (
     <Row>
-      <TableData>{index + 1}</TableData>
+      <TableData>{getRank(index + 1)}</TableData>
       <TableData flex={4}>{username}</TableData>
       <TableData flex={3}>{score}</TableData>
       <TableData flex={2}>{round}</TableData>

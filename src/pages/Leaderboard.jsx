@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import HomeButton from '../components/leaderboard/HomeButton';
+import Button from '../components/Button';
 import Table from '../components/leaderboard/Table';
-import SIZE from '../constants/size';
+import SPEC from '../constants/spec';
 import COLOR from '../constants/color';
 import MEDIA_QUERY_END_POINT from '../constants/media-query';
 
@@ -26,6 +26,13 @@ const Title = styled.h1`
   }
 `;
 
+const HomeButton = styled(Button)`
+  margin-bottom: 30px;
+  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
+    margin-bottom: 40px;
+  }
+`;
+
 const Leaderboard = () => {
   const [records, setRecords] = useState([]);
   useEffect(() => {
@@ -39,7 +46,7 @@ const Leaderboard = () => {
   return (
     <Container>
       <Title>순위표</Title>
-      <HomeButton color={COLOR.YELLOW} size={SIZE.SMALL_BUTTON}>
+      <HomeButton color={COLOR.YELLOW} spec={SPEC.SMALL_BUTTON}>
         홈으로
       </HomeButton>
       <Table records={records} />

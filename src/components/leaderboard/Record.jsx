@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import TableRow from './TableRow';
@@ -13,10 +14,28 @@ const TableData = styled(Cell)`
   color: ${COLOR.BLACK};
 `;
 
-const Record = ({ index, record: { username, score, round, combo } }) => {
+const Record = ({
+  index,
+  record: { username, score, round, combo },
+  length,
+  reverse
+}) => {
+  const getRank = useCallback((num) => {
+    const rank = reverse.current ? num + 1 : length - num;
+    switch (rank) {
+      case 1:
+        return '🥇';
+      case 2:
+        return '🥈';
+      case 3:
+        return '🥉';
+      default:
+        return rank;
+    }
+  }, []);
   return (
     <Row>
-      <TableData>{index + 1}</TableData>
+      <TableData>{getRank(index)}</TableData>
       <TableData flex={4}>{username}</TableData>
       <TableData flex={3}>{score}</TableData>
       <TableData flex={2}>{round}</TableData>
@@ -27,7 +46,9 @@ const Record = ({ index, record: { username, score, round, combo } }) => {
 
 Record.propTypes = {
   index: propTypes.number,
-  record: propTypes.object
+  record: propTypes.object,
+  length: propTypes.number,
+  reverse: propTypes.any
 };
 
-export default Record;
+export default React.memo(Record);

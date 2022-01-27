@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import Table from '../components/leaderboard/Table';
@@ -37,9 +38,11 @@ const Leaderboard = () => {
   return (
     <Container>
       <Title>순위표</Title>
-      <HomeButton color={COLOR.YELLOW} spec={SPEC.SMALL_BUTTON}>
-        홈으로
-      </HomeButton>
+      <Link to="/">
+        <HomeButton color={COLOR.YELLOW} spec={SPEC.SMALL_BUTTON}>
+          홈으로
+        </HomeButton>
+      </Link>
       <Table />
     </Container>
   );

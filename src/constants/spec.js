@@ -36,6 +36,7 @@ const SPEC = {
       width: '133px',
       height: '60px',
       fontSize: '50px',
+      fontFamily: 'Yeon-Sung',
       borderRadius: '5px'
     },
     DESKTOP: {

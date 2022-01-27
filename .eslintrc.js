@@ -31,6 +31,7 @@ module.exports = {
     'no-case-declarations': 'off',
     'no-console': 'off',
     'no-shadow': 'off',
+    'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     'no-useless-return': 'off',
     'react/react-in-jsx-scope': 'off'

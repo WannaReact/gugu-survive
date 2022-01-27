@@ -1,8 +1,7 @@
-import Home from './pages/Home.jsx';
-import Game from './pages/Game.jsx';
+import Router from './components/Router';
 
 const App = () => {
-  return <Home />;
+  return <Router />;
 };
 
 export default App;

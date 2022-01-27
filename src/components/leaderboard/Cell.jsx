@@ -1,10 +1,11 @@
+import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import MEDIA_QUERY_END_POINT from '../../constants/media-query';
 
 const TableCell = styled.th`
   flex: ${({ flex }) => flex ?? 1};
-  font-family: 'NotoSansMedium', sans-serif;
+  font-family: 'NotoSans', sans-serif;
   font-size: 16px;
   word-break: keep-all;
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
@@ -20,4 +21,4 @@ Cell.propTypes = {
   children: propTypes.oneOfType([propTypes.number, propTypes.string])
 };
 
-export default Cell;
+export default React.memo(Cell);

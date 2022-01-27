@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 import pigeon from '../../assets/images/pigeon.png';
 import flame from '../../assets/images/flame.png';
 
@@ -11,10 +12,9 @@ const Progress = styled.div`
 const ProgressBar = styled.div`
   border-radius: 10px;
   background-color: #ff8888;
-  width: ${(props) => props.width};
+  width: 100%;
   height: 30px;
   position: relative;
-  transition: 0.5s linear;
 
   &::before {
     content: '';
@@ -49,55 +49,47 @@ const TimeNumber = styled.p`
   padding-top: 3px;
 `;
 
-const GameTimer = () => {
-  const [value, setValue] = useState(3000);
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     if (value > 0) {
-  //       setValue((prev) => {
-  //         console.log(value);
-  //         return prev - 1;
-  //       });
-  //     } else {
-  //       clearInterval(timer);
-  //     }
-  //   }, 10);
-  //   return () => clearInterval(timer);
-  // }, [value]);
+const GameTimer = ({ width }) => {
+  const [widthState, setWidthState] = useState(width.current);
+  const time = useRef(new Date());
+  const timer = useRef(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setValue((prev) => {
-        if (prev > 0) {
-          return prev - 50;
-        }
-        clearInterval(timer);
-        return 0;
-      });
-    }, 500);
-    return () => clearInterval(timer);
+    timer.current = setInterval(() => {
+      const now = new Date();
+      const diff = Math.floor((now - time.current) / 10);
+      if (width.current >= diff) {
+        width.current -= diff;
+      } else {
+        width.current = 0;
+      }
+      setWidthState(width.current);
+      time.current = now;
+    }, 40);
+    return () => clearInterval(timer.current);
   }, []);
 
-  // const addTime = () => {
-  //   setValue((prev) => {
-  //     if (prev < 2700) {
-  //       return prev + 300;
-  //     }
-  //     return 3000;
-  //   });
-  //   // value 100초과시 예외처리 ((나중에 게임로직 bonus로 추가))
-  // };
+  useEffect(() => {
+    if (width.current === 0) {
+      clearInterval(timer.current);
+    } else if (width.current > 3000) {
+      width.current = 3000;
+    }
+  }, [width.current]);
 
   return (
-    <>
-      <Progress>
-        <ProgressBar width={`${(value / 3000) * 95 + 5}%`}>
-          <TimeNumber>{`${value}`}</TimeNumber>
-        </ProgressBar>
-      </Progress>
-    </>
+    <Progress>
+      <ProgressBar style={{ width: `${(widthState / 3000) * 90 + 10}%` }}>
+        <TimeNumber>{`${Math.floor(widthState / 100)} : ${
+          widthState % 100
+        }`}</TimeNumber>
+      </ProgressBar>
+    </Progress>
   );
+};
+
+GameTimer.propTypes = {
+  width: propTypes.object
 };
 
 export default GameTimer;

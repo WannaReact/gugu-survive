@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
@@ -35,6 +35,7 @@ const Game = () => {
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [round, setRound] = useState(1);
+  const width = useRef(3000);
 
   const gameLogic = useCallback(() => {
     const levelUp = 9;
@@ -60,7 +61,7 @@ const Game = () => {
 
   return (
     <Main>
-      <GameTimer />
+      <GameTimer width={width} />
       <div
         style={{
           display: 'flex',

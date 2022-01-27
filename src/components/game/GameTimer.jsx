@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import pigeon from '../../assets/images/pigeon.png';
 import flame from '../../assets/images/flame.png';
@@ -50,7 +50,6 @@ const TimeNumber = styled.p`
 `;
 
 const GameTimer = () => {
-  console.log('hi');
   const [value, setValue] = useState(3000);
 
   // useEffect(() => {
@@ -80,15 +79,15 @@ const GameTimer = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const bonus = () => {
-    setValue((prev) => {
-      if (prev < 2700) {
-        return prev + 300;
-      }
-      return 3000;
-    });
-    // value 100초과시 예외처리
-  };
+  // const addTime = () => {
+  //   setValue((prev) => {
+  //     if (prev < 2700) {
+  //       return prev + 300;
+  //     }
+  //     return 3000;
+  //   });
+  //   // value 100초과시 예외처리 ((나중에 게임로직 bonus로 추가))
+  // };
 
   return (
     <>
@@ -97,7 +96,6 @@ const GameTimer = () => {
           <TimeNumber>{`${value}`}</TimeNumber>
         </ProgressBar>
       </Progress>
-      <button onClick={bonus}>시간추가</button>
     </>
   );
 };

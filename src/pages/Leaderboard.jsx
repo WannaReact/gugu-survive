@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import Table from '../components/leaderboard/Table';
@@ -34,24 +34,15 @@ const HomeButton = styled(Button)`
 `;
 
 const Leaderboard = () => {
-  const [records, setRecords] = useState([]);
-  useEffect(() => {
-    fetch('/leaderboard?order=score&isReverse=true')
-      .then((res) => res.json())
-      .then((json) => {
-        setRecords(json);
-      });
-  }, []);
-
   return (
     <Container>
       <Title>순위표</Title>
       <HomeButton color={COLOR.YELLOW} spec={SPEC.SMALL_BUTTON}>
         홈으로
       </HomeButton>
-      <Table records={records} />
+      <Table />
     </Container>
   );
 };
 
-export default Leaderboard;
+export default React.memo(Leaderboard);

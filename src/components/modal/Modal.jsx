@@ -1,8 +1,9 @@
+import React from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import Portal from '../Portal';
 import COLOR from '../../constants/color';
-import MODAL_SPEC from '../../constants/modal-spec';
+import SPEC from '../../constants/spec';
 import MEDIA_QUERY_END_POINT from '../../constants/media-query';
 
 const ModalBackground = styled.div`
@@ -20,13 +21,16 @@ const ModalBackground = styled.div`
 const ModalContent = styled.div`
   position: relative;
   background-color: ${COLOR.WHITE};
-  width: ${MODAL_SPEC.REGISTER_MODAL.MOBILE.width};
+  width: ${SPEC.MODAL.MOBILE.width};
   border-radius: 10px;
-  padding: 25px;
+  padding: 16px;
   margin: 0 auto;
   text-align: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    width: ${MODAL_SPEC.REGISTER_MODAL.DESKTOP.width};
+    width: ${SPEC.MODAL.DESKTOP.width};
     padding: 50px;
   }
 `;
@@ -40,7 +44,7 @@ const Modal = ({ openModalHandler, children }) => {
             event.stopPropagation();
           }}
         >
-          {children}
+          {React.cloneElement(children, { openModalHandler })}
         </ModalContent>
       </ModalBackground>
     </Portal>

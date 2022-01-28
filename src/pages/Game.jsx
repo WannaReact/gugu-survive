@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
+import COLOR from '../constants/color';
 
 const Main = styled.main`
   display: flex;
@@ -22,7 +23,7 @@ const Problem = styled.p`
 const Answer = styled.input`
   width: 206px;
   height: 64px;
-  border: 2px solid #000000;
+  border: 2px solid ${COLOR.BLACK};
   margin-bottom: 18px;
   font-size: 40px;
   text-align: center;
@@ -31,7 +32,7 @@ const Answer = styled.input`
     appearance: none;
   }
   &:disabled {
-    background-color: red;
+    background-color: ${COLOR.WHITE};
   }
 `;
 

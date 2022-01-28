@@ -12,13 +12,8 @@ const KeyPad = styled.div`
   padding: 0px 92px;
 `;
 
-const GameKeyPad = ({ setInp, gameLogic }) => {
+const GameKeyPad = ({ keypadValue, gameLogic }) => {
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-
-  const ttt = (item) => () => {
-    setInp((prev) => prev + item);
-  };
-
   // onClick={()=>setInp(item)} 하면 되는 줄 알았는데, 다른법 있나? 고차함수말고
 
   return (
@@ -29,7 +24,7 @@ const GameKeyPad = ({ setInp, gameLogic }) => {
             spec={SPEC.NUM_PAD}
             color={COLOR.NUM_PAD}
             key={item}
-            onClick={ttt(item)}
+            onClick={keypadValue(item)}
           >
             {`${item}`}
           </Button>
@@ -43,7 +38,7 @@ const GameKeyPad = ({ setInp, gameLogic }) => {
 };
 
 GameKeyPad.propTypes = {
-  setInp: propTypes.func,
+  keypadValue: propTypes.func,
   gameLogic: propTypes.func
 };
 

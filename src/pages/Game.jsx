@@ -30,6 +30,9 @@ const Answer = styled.input`
   &::-webkit-outer-spin-button {
     appearance: none;
   }
+  &:disabled {
+    background-color: red;
+  }
 `;
 
 const Game = () => {
@@ -42,6 +45,7 @@ const Game = () => {
   const [correctCount, setCorrectCount] = useState(0);
   const levelUp = useRef(8);
   const width = useRef(3000);
+  const handler = useRef(null);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const gameLogic = useCallback(() => {
@@ -85,13 +89,11 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    window.addEventListener(
-      'resize',
-      debounce(() => {
-        console.log('실행됨');
-        setWindowSize(window.innerWidth);
-      }, 100)
-    );
+    handler.current = debounce(() => {
+      setWindowSize(window.innerWidth);
+    }, 100);
+    window.addEventListener('resize', handler.current);
+    return () => window.removeEventListener('resize', handler.current);
   }, []);
 
   return (

@@ -1,30 +1,58 @@
-import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
+import styled from 'styled-components';
 import Button from '../Button';
 import SPEC from '../../constants/spec';
 import COLOR from '../../constants/color';
+import MEDIA_QUERY_END_POINT from '../../constants/media-query';
 
-const ExplainModalContent = () => {
+const Title = styled.h2`
+  font-family: 'Yeon-Sung';
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 22px;
+  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
+    font-size: 45px;
+  }
+`;
+
+const P = styled.p`
+  font-size: 19px;
+  line-height: 1.3;
+  margin-bottom: 22px;
+  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
+    font-size: 25px;
+  }
+`;
+
+const ExplainModalContent = ({ openModalHandler }) => {
   return (
     <>
-      <h2>게임 설명</h2>
-      <p>
-        우리의 유해조수 비둘기 구구를 통구이가 될 운명에서 구해주세요! <br />{' '}
-        두뇌 풀가동!
-      </p>
-      <h2>게임 규칙</h2>
-      <p>게임 시작 시 제한시간 30초가 부여됩니다.</p>
-      <p>
-        구구단 문제를 하나 맞출 때마다 제한 시간 3초가 추가되고p, 틀릴 때마다
-        1초가 감소합니다.
-      </p>
-      <p>10문제마다 다음 라운드로 넘어가며, 난이도가 점점 높아집니다p.</p>
-      <Link to="/play">
-        <Button spec={SPEC.SMALL_BUTTON} color={COLOR.RED}>
-          닫기
-        </Button>
-      </Link>
+      <Title>게임 설명</Title>
+      <P>
+        우리의 유해조수 비둘기 구구를 <br /> 통구이가 될 운명에서 구해주세요!
+      </P>
+      <P>두뇌 풀가동!</P>
+      <Title>게임 규칙</Title>
+      <P>게임 시작 시 제한시간 30초가 부여됩니다.</P>
+      <P>
+        구구단 문제를 하나 맞출 때마다
+        <br /> 제한 시간 3초가 추가되고,
+        <br /> 틀릴 때마다 1초가 감소합니다.
+      </P>
+      <P>10문제마다 다음 라운드로 넘어가며, 난이도가 점점 높아집니다.</P>
+      <Button
+        spec={SPEC.SMALL_BUTTON}
+        color={COLOR.YELLOW}
+        onClick={openModalHandler}
+      >
+        닫기
+      </Button>
     </>
   );
+};
+
+ExplainModalContent.propTypes = {
+  openModalHandler: propTypes.func
 };
 
 export default ExplainModalContent;

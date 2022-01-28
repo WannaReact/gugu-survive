@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button';
 import SPEC from '../../constants/spec';
 import COLOR from '../../constants/color';
-import React, { useState, useRef } from 'react';
+
 const ExplainModalContent = () => {
   return (
     <>

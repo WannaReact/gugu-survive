@@ -23,7 +23,7 @@ const ButtonSection = styled.section`
 `;
 
 const Home = () => {
-  const [isOpen, setIsOpen] = useState(false); //isOpen 상태를 만들어준다.
+  const [isOpen, setIsOpen] = useState(false);
   const [whichModal, setWhichModal] = useState(null);
   const openModalHandler = (elem) => {
     switch (elem) {
@@ -33,6 +33,8 @@ const Home = () => {
       case 'explain':
         setWhichModal(<ExplainModalContent />);
         break;
+      default:
+        return;
     }
     setIsOpen(!isOpen);
   };
@@ -71,7 +73,7 @@ const Home = () => {
         </ButtonSection>
       </Container>
       {isOpen && (
-        <Modal openModalHandler={openModalHandler} children={whichModal} />
+        <Modal openModalHandler={openModalHandler}>{whichModal}</Modal>
       )}
     </>
   );

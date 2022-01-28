@@ -3,15 +3,16 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import pigeon from '../../assets/images/pigeon.png';
 import flame from '../../assets/images/flame.png';
+import COLOR from '../../constants/color';
 
 const Progress = styled.div`
   border-radius: 50px;
-  background-color: #f1f1f1;
+  background-color: ${COLOR.WHITE};
   width: calc(100% - 50px);
 `;
 const ProgressBar = styled.div`
-  border-radius: 10px;
-  background-color: #ff8888;
+  border-radius: 50px;
+  background-color: ${COLOR.PROGRESS_BAR};
   width: 100%;
   height: 30px;
   position: relative;
@@ -41,6 +42,14 @@ const ProgressBar = styled.div`
     background-image: url(${pigeon});
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    filter: opacity(
+        ${({ width }) => {
+          console.log(width);
+          if (width > 300) return 1;
+          return width / 1500 + 0.7;
+        }}
+      )
+      drop-shadow(0 0 0 red);
   }
 `;
 
@@ -80,7 +89,10 @@ const GameTimer = ({ width }) => {
 
   return (
     <Progress>
-      <ProgressBar style={{ width: `${(widthState / 1500) * 90 + 10}%` }}>
+      <ProgressBar
+        style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
+        width={width.current}
+      >
         <TimeNumber>{`${Math.floor(widthState / 100)} : ${
           widthState % 100
         }`}</TimeNumber>

@@ -21,7 +21,7 @@ const SPEC = {
     MOBILE: {
       width: '121px',
       height: '34px',
-      fontSize: '25px',
+      fontSize: '20px',
       fontFamily: 'Yeon-Sung',
       borderRadius: '10px'
     },
@@ -53,6 +53,14 @@ const SPEC = {
       fontSize: '50px',
       fontFamily: 'Acme',
       borderRadius: '5px'
+    }
+  },
+  MODAL: {
+    MOBILE: {
+      width: '288px'
+    },
+    DESKTOP: {
+      width: '600px'
     }
   }
 };

@@ -3,10 +3,10 @@ import pigeon from '../assets/images/pigeon.png';
 import MEDIA_QUERY_END_POINT from '../constants/media-query';
 
 const TitleContainer = styled.h1`
-  width: 288px;
-  margin-bottom: 104px;
+  width: 270px;
+  margin-bottom: 50px;
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    width: 450px;
+    width: 360px;
   }
   div {
     display: flex;
@@ -19,7 +19,7 @@ const GuGu = styled.span`
   font-size: 80px;
   font-weight: bold;
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    font-size: 120px;
+    font-size: 100px;
   }
 `;
 
@@ -30,11 +30,13 @@ const Survive = styled(GuGu)`
 `;
 
 const Img = styled.img`
-  width: 54px;
-  height: 54px;
+  width: 70px;
+  height: 70px;
+  margin-right: 10px;
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    width: 82px;
-    height: 82px;
+    width: 90px;
+    height: 90px;
+    margin-right: 25px;
   }
 `;
 

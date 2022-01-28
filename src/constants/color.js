@@ -12,7 +12,7 @@ const COLOR = {
   NUM_PAD: '#C4C4C4',
   BOLD_BORDER: '#E0DFDF',
   LIGHT_BORDER: '#EEEEEE',
-  MODAL_BACKGROUND: 'rgba(0, 0, 0, 0.2)'
+  MODAL_BACKGROUND: 'rgba(0, 0, 0, 0.5)'
 };
 
 export default COLOR;

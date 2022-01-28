@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 import chicken from '../../assets/images/meat.png';
 import Button from '../Button';
 import SPEC from '../../constants/spec';
@@ -47,12 +48,13 @@ const ButtonSection = styled.div`
   margin: 0 auto;
 `;
 
-const ResultModalContent = () => {
+const ResultModalContent = ({ score }) => {
+  console.log(score);
   return (
     <>
       <Title>Game Over</Title>
       <Img src={chicken}></Img>
-      <Score>1234 점</Score>
+      <Score>{`${score}점`}</Score>
       <ButtonSection>
         <Link to="/play">
           <Button spec={SPEC.SMALL_BUTTON} color={COLOR.YELLOW}>
@@ -67,6 +69,10 @@ const ResultModalContent = () => {
       </ButtonSection>
     </>
   );
+};
+
+ResultModalContent.propTypes = {
+  score: propTypes.number
 };
 
 export default ResultModalContent;

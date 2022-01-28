@@ -37,7 +37,7 @@ const ProgressBar = styled.div`
     position: absolute;
     right: 0;
     bottom: 0;
-    transform: translateY(-40%);
+    transform: scaleX(-1) translateY(-40%);
     background-image: url(${pigeon});
     background-size: 100% 100%;
     background-repeat: no-repeat;

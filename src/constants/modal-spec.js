@@ -12,3 +12,5 @@ const MODAL_SPEC = {
     DESKTOP: { width: '737px', minHeight: '532px' }
   }
 };
+
+export default MODAL_SPEC;

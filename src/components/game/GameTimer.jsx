@@ -72,14 +72,14 @@ const GameTimer = ({ width }) => {
   useEffect(() => {
     if (width.current === 0) {
       clearInterval(timer.current);
-    } else if (width.current > 3000) {
-      width.current = 3000;
+    } else if (width.current > 1500) {
+      width.current = 1500;
     }
   }, [width.current]);
 
   return (
     <Progress>
-      <ProgressBar style={{ width: `${(widthState / 3000) * 90 + 10}%` }}>
+      <ProgressBar style={{ width: `${(widthState / 1500) * 90 + 10}%` }}>
         <TimeNumber>{`${Math.floor(widthState / 100)} : ${
           widthState % 100
         }`}</TimeNumber>

@@ -1,7 +1,8 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
+import COLOR from '../constants/color';
 
 const Main = styled.main`
   display: flex;
@@ -22,7 +23,7 @@ const Problem = styled.p`
 const Answer = styled.input`
   width: 206px;
   height: 64px;
-  border: 2px solid #000000;
+  border: 2px solid ${COLOR.BLACK};
   margin-bottom: 18px;
   font-size: 40px;
   text-align: center;
@@ -30,48 +31,42 @@ const Answer = styled.input`
   &::-webkit-outer-spin-button {
     appearance: none;
   }
+  &:disabled {
+    background-color: ${COLOR.WHITE};
+  }
 `;
 
 const Game = () => {
   const [inp, setInp] = useState('');
-  const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 9));
-  const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 9));
+  const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 8) + 1);
+  const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 8) + 1);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [round, setRound] = useState(1);
   const [correctCount, setCorrectCount] = useState(0);
-  const [comboCheck, setComboCheck] = useState(true);
   const levelUp = useRef(8);
   const width = useRef(3000);
+  const handler = useRef(null);
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const gameLogic = useCallback(() => {
-    if (width.current === 0) {
-      return;
-    }
     if (+inp === numFirst * numSecond) {
-      console.log('정답');
-      if (comboCheck) {
-        setCombo((prev) => prev + 1);
-      }
+      setCombo((prev) => prev + 1);
       setScore((prev) => prev + 100 + round * combo);
-      setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
-      setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
-      setInp('');
       setCorrectCount((prev) => prev + 1);
-      setComboCheck(true);
       width.current += 300;
     } else {
-      console.log('땡');
-      setInp('');
       setCombo(0);
-      setComboCheck(false);
+      width.current -= 100;
     }
-
     if (correctCount > 0 && correctCount % 5 === 0) {
       setRound((prev) => prev + 1);
       levelUp.current += 1;
     }
-  }, [inp, comboCheck, numFirst, numSecond, correctCount]);
+    setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
+    setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
+    setInp('');
+  }, [inp, numFirst, numSecond, correctCount]);
 
   const onChangeValue = (e) => {
     setInp(e.target.value);
@@ -84,6 +79,24 @@ const Game = () => {
     []
   );
 
+  const debounce = useCallback((callback, delay) => {
+    let timer;
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(callback, delay);
+    };
+  }, []);
+
+  useEffect(() => {
+    handler.current = debounce(() => {
+      setWindowSize(window.innerWidth);
+    }, 100);
+    window.addEventListener('resize', handler.current);
+    return () => window.removeEventListener('resize', handler.current);
+  }, []);
+
   return (
     <Main>
       <GameTimer width={width} />
@@ -95,21 +108,18 @@ const Game = () => {
         }}
       >
         <div>
-          <p>Score:{score}</p>
-          <p>Combo:{combo}</p>
+          <p>Score: {score}</p>
+          <p>Combo: {combo}</p>
         </div>
-        <p>Round:{round}</p>
+        <p>Round: {round}</p>
       </div>
-
       <Problem>{`${numFirst} X ${numSecond}`}</Problem>
-
-      {window.innerWidth > 768 ? (
+      {windowSize > 768 ? (
         <Answer type="number" value={inp} onChange={onChangeValue} />
       ) : (
-        <Answer type="number" defaultValue={inp} disabled />
+        <Answer type="number" value={inp} disabled />
       )}
-
-      <GameKeyPad kepadValue={keypadValue} gameLogic={gameLogic} />
+      <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />
     </Main>
   );
 };

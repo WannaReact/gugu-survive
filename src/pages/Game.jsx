@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
 import COLOR from '../constants/color';
+import GameInfo from '../components/game/GameInfo';
+import Problem from '../components/game/Problem';
 
 const Main = styled.main`
   display: flex;
@@ -12,12 +14,6 @@ const Main = styled.main`
   width: 100vw;
   max-width: 770px;
   min-width: 320px;
-`;
-
-const Problem = styled.p`
-  font-size: 80px;
-  line-height: 101px;
-  text-align: center;
 `;
 
 const Answer = styled.input`
@@ -37,12 +33,18 @@ const Answer = styled.input`
 `;
 
 const Game = () => {
+  const inputRef = useRef();
   const [inp, setInp] = useState('');
+  const numFirstRef = useRef();
   const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 8) + 1);
+  const numSecondRef = useRef();
   const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 8) + 1);
   const [score, setScore] = useState(0);
+  const comboRef = useRef();
   const [combo, setCombo] = useState(0);
+  const roundRef = useRef();
   const [round, setRound] = useState(1);
+  const correctCountRef = useRef();
   const [correctCount, setCorrectCount] = useState(0);
   const levelUp = useRef(8);
   const width = useRef(3000);
@@ -50,26 +52,30 @@ const Game = () => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const gameLogic = useCallback(() => {
-    if (+inp === numFirst * numSecond) {
+    if (+inputRef.current === numFirstRef.current * numSecondRef.current) {
       setCombo((prev) => prev + 1);
-      setScore((prev) => prev + 100 + round * combo);
+      setScore((prev) => prev + 100 + roundRef.current * comboRef.current);
       setCorrectCount((prev) => prev + 1);
       width.current += 300;
     } else {
-      setCombo(0);
+      comboRef.current = 0;
+      setCombo(comboRef.current);
       width.current -= 100;
     }
-    if (correctCount > 0 && correctCount % 5 === 0) {
-      setRound((prev) => prev + 1);
+    if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
+      roundRef.current += 1;
+      setRound(roundRef.current);
       levelUp.current += 1;
     }
     setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
     setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
-    setInp('');
-  }, [inp, numFirst, numSecond, correctCount]);
+    inputRef.current = '';
+    setInp(inputRef.current);
+  }, []);
 
   const onChangeValue = (e) => {
-    setInp(e.target.value);
+    inputRef.current = e.target.value;
+    setInp(inputRef.current);
   };
 
   const keypadValue = useCallback(
@@ -90,6 +96,15 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
+    inputRef.current = inp;
+    numFirstRef.current = numFirst;
+    numSecondRef.current = numSecond;
+    comboRef.current = combo;
+    roundRef.current = round;
+    correctCountRef.current = correctCount;
+  });
+
+  useEffect(() => {
     handler.current = debounce(() => {
       setWindowSize(window.innerWidth);
     }, 100);
@@ -100,20 +115,8 @@ const Game = () => {
   return (
     <Main>
       <GameTimer width={width} />
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: 'calc(100% - 50px)'
-        }}
-      >
-        <div>
-          <p>Score: {score}</p>
-          <p>Combo: {combo}</p>
-        </div>
-        <p>Round: {round}</p>
-      </div>
-      <Problem>{`${numFirst} X ${numSecond}`}</Problem>
+      <GameInfo score={score} combo={combo} round={round} />
+      <Problem numFirst={numFirst} numSecond={numSecond} />
       {windowSize > 768 ? (
         <Answer type="number" value={inp} onChange={onChangeValue} />
       ) : (

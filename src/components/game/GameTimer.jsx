@@ -92,4 +92,4 @@ GameTimer.propTypes = {
   width: propTypes.object
 };
 
-export default GameTimer;
+export default React.memo(GameTimer);

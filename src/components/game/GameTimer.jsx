@@ -74,6 +74,7 @@ const GameTimer = ({ width }) => {
       clearInterval(timer.current);
     } else if (width.current > 1500) {
       width.current = 1500;
+      setWidthState(width.current);
     }
   }, [width.current]);
 

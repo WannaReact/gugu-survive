@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import MEDIA_QUERY_END_POINT from '../constants/media-query';
@@ -23,6 +24,7 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ children, ...rest }) => {
+  console.log('버튼');
   return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
@@ -46,4 +48,4 @@ Button.propTypes = {
   onClick: propTypes.func
 };
 
-export default Button;
+export default React.memo(Button);

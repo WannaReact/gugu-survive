@@ -6,23 +6,23 @@ import flame from '../../assets/images/flame.png';
 import COLOR from '../../constants/color';
 
 const Progress = styled.div`
+  width: calc(100% - 50px);
   border-radius: 50px;
   background-color: ${COLOR.WHITE};
-  width: calc(100% - 50px);
 `;
 const ProgressBar = styled.div`
-  border-radius: 50px;
-  background-color: ${COLOR.PROGRESS_BAR};
+  position: relative;
   width: 100%;
   height: 30px;
-  position: relative;
+  border-radius: 50px;
+  background-color: ${COLOR.PROGRESS_BAR};
 
   &::before {
     content: '';
     display: block;
+    position: absolute;
     width: 60px;
     height: 60px;
-    position: absolute;
     left: 0;
     bottom: 0;
     transform: translateY(-40%);
@@ -33,9 +33,9 @@ const ProgressBar = styled.div`
   &::after {
     content: '';
     display: block;
+    position: absolute;
     width: 54px;
     height: 54px;
-    position: absolute;
     right: 0;
     bottom: 0;
     transform: scaleX(-1) translateY(-40%);
@@ -44,7 +44,6 @@ const ProgressBar = styled.div`
     background-repeat: no-repeat;
     filter: opacity(
         ${({ width }) => {
-          console.log(width);
           if (width > 300) return 1;
           return width / 1500 + 0.7;
         }}
@@ -54,8 +53,11 @@ const ProgressBar = styled.div`
 `;
 
 const TimeNumber = styled.p`
-  padding-left: 10px;
-  padding-top: 3px;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  width: 60px;
 `;
 
 const GameTimer = ({ width }) => {
@@ -94,7 +96,7 @@ const GameTimer = ({ width }) => {
         width={width.current}
       >
         <TimeNumber>{`${Math.floor(widthState / 100)} : ${
-          widthState % 100
+          (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
         }`}</TimeNumber>
       </ProgressBar>
     </Progress>

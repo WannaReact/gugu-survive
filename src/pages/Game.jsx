@@ -34,8 +34,8 @@ const Answer = styled.input`
 
 const Game = () => {
   const [inp, setInp] = useState('');
-  const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 9));
-  const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 9));
+  const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 8) + 1);
+  const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 8) + 1);
   const [score, setScore] = useState(0);
   const [combo, setCombo] = useState(0);
   const [round, setRound] = useState(1);
@@ -49,7 +49,6 @@ const Game = () => {
       return;
     }
     if (+inp === numFirst * numSecond) {
-      console.log('정답');
       if (comboCheck) {
         setCombo((prev) => prev + 1);
       }
@@ -61,7 +60,6 @@ const Game = () => {
       setComboCheck(true);
       width.current += 300;
     } else {
-      console.log('땡');
       setInp('');
       setCombo(0);
       setComboCheck(false);
@@ -109,7 +107,7 @@ const Game = () => {
         <Answer type="number" defaultValue={inp} disabled />
       )}
 
-      <GameKeyPad kepadValue={keypadValue} gameLogic={gameLogic} />
+      <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />
     </Main>
   );
 };

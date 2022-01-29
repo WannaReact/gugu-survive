@@ -43,6 +43,8 @@ const Game = () => {
   const [score, setScore] = useState(0);
   const comboRef = useRef();
   const [combo, setCombo] = useState(0);
+  const maxComboRef = useRef(0);
+  const [maxCombo, setMaxCombo] = useState(0);
   const roundRef = useRef();
   const [round, setRound] = useState(1);
   const correctCountRef = useRef();
@@ -55,24 +57,28 @@ const Game = () => {
 
   const gameLogic = useCallback(() => {
     if (+inputRef.current === numFirstRef.current * numSecondRef.current) {
-      setCombo((prev) => prev + 1);
       setScore((prev) => prev + 100 + roundRef.current * comboRef.current);
+      setCombo((prev) => prev + 1);
+      comboRef.current += 1;
+      if (maxComboRef.current < comboRef.current) {
+        setMaxCombo(() => comboRef.current);
+        maxComboRef.current = comboRef.current;
+      }
       setCorrectCount((prev) => prev + 1);
+      correctCountRef.current += 1;
       width.current += 300;
+      if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
+        setRound((prev) => prev + 1);
+        levelUp.current += 2;
+      }
     } else {
+      setCombo(0);
       comboRef.current = 0;
-      setCombo(comboRef.current);
       width.current -= 100;
-    }
-    if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
-      roundRef.current += 1;
-      setRound(roundRef.current);
-      levelUp.current += 2;
     }
     setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
     setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
-    inputRef.current = '';
-    setInp(inputRef.current);
+    setInp('');
     answer.current.focus();
   }, []);
 
@@ -84,10 +90,10 @@ const Game = () => {
         username: localStorage.getItem('gamerName'),
         score,
         round,
-        combo
+        combo: maxComboRef.current
       })
     }).catch(() => alert('기록 등록에 실패했습니다!'));
-  }, [score, round, combo]);
+  }, [score, round, maxCombo]);
 
   const onChangeValue = useCallback((e) => {
     inputRef.current = e.target.value;
@@ -123,6 +129,7 @@ const Game = () => {
     numFirstRef.current = numFirst;
     numSecondRef.current = numSecond;
     comboRef.current = combo;
+    maxComboRef.current = maxCombo;
     roundRef.current = round;
     correctCountRef.current = correctCount;
   });

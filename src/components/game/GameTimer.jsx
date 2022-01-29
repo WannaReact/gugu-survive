@@ -32,26 +32,15 @@ const ProgressBar = styled.div`
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 54px;
-    height: 54px;
-    right: 0;
-    bottom: 0;
-    transform: scaleX(-1) translateY(-40%);
-    background-image: url(${pigeon});
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    filter: opacity(
-        ${({ width }) => {
-          if (width > 300) return 1;
-          return width / 1500 + 0.7;
-        }}
-      )
-      drop-shadow(0 0 0 red);
-  }
+`;
+
+const Pigeon = styled.img`
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  right: 0;
+  bottom: 0;
+  transform: scaleX(-1) translateY(-40%);
 `;
 
 const TimeNumber = styled.p`
@@ -67,8 +56,6 @@ const GameTimer = ({ width, score }) => {
   const time = useRef(new Date());
   const timer = useRef(null);
   const [gameOver, setGameOver] = useState(false);
-
-  console.log(score);
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -98,13 +85,20 @@ const GameTimer = ({ width, score }) => {
   return (
     <>
       <Progress>
-        <ProgressBar
-        style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
-        width={width.current}
-      >
-        <TimeNumber>{`${Math.floor(widthState / 100)} : ${
-          (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
-        }`}</TimeNumber>
+        <ProgressBar style={{ width: `${(widthState / 1500) * 90 + 10}%` }}>
+          <Pigeon
+            src={pigeon}
+            style={{
+              filter: `opacity(${
+                widthState > 300 ? 1 : widthState / 1500 + 0.7
+              }) drop-shadow(0 0 0 red)`
+            }}
+          />
+          <TimeNumber>
+            {`${Math.floor(widthState / 100)} : ${
+              (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
+            }`}
+          </TimeNumber>
         </ProgressBar>
       </Progress>
       {gameOver ? (

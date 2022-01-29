@@ -68,8 +68,6 @@ const GameTimer = ({ width, score }) => {
   const timer = useRef(null);
   const [gameOver, setGameOver] = useState(false);
 
-  console.log(score);
-
   useEffect(() => {
     timer.current = setInterval(() => {
       const now = new Date();
@@ -99,12 +97,12 @@ const GameTimer = ({ width, score }) => {
     <>
       <Progress>
         <ProgressBar
-        style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
-        width={width.current}
-      >
-        <TimeNumber>{`${Math.floor(widthState / 100)} : ${
-          (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
-        }`}</TimeNumber>
+          style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
+          width={width.current}
+        >
+          <TimeNumber>{`${Math.floor(widthState / 100)} : ${
+            (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
+          }`}</TimeNumber>
         </ProgressBar>
       </Progress>
       {gameOver ? (

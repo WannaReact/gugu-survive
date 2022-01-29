@@ -49,7 +49,6 @@ const ButtonSection = styled.div`
 `;
 
 const ResultModalContent = ({ score }) => {
-  console.log(score);
   return (
     <>
       <Title>Game Over</Title>

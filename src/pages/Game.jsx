@@ -66,7 +66,7 @@ const Game = () => {
     if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
       roundRef.current += 1;
       setRound(roundRef.current);
-      levelUp.current += 1;
+      levelUp.current += 2;
     }
     setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
     setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);

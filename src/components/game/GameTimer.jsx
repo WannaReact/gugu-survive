@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import ResultModalContent from '../modal/ResultModalContent';
@@ -62,34 +62,46 @@ const TimeNumber = styled.p`
   width: 60px;
 `;
 
-const GameTimer = ({ width, score, gameOver, dispatch }) => {
-  console.log('GameTimer');
+const GameTimer = ({ width, score }) => {
+  const [widthState, setWidthState] = useState(width.current);
   const time = useRef(new Date());
   const timer = useRef(null);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     timer.current = setInterval(() => {
       const now = new Date();
       const diff = Math.floor((now - time.current) / 10);
-      dispatch({ type: 'CHANGE_TIMER', diff });
+      if (width.current >= diff) {
+        width.current -= diff;
+      } else {
+        width.current = 0;
+      }
+      setWidthState(width.current);
       time.current = now;
     }, 40);
     return () => clearInterval(timer.current);
   }, []);
 
   useEffect(() => {
-    dispatch({ type: 'CHECK_TIMER', timer });
-  }, [width]);
+    if (width.current === 0) {
+      clearInterval(timer.current);
+      setGameOver((prev) => !prev);
+    } else if (width.current > 1500) {
+      width.current = 1500;
+      setWidthState(width.current);
+    }
+  }, [width.current]);
 
   return (
     <>
       <Progress>
         <ProgressBar
-          style={{ width: `${(width / 1500) * 90 + 10}%` }}
+          style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
           width={width.current}
         >
-          <TimeNumber>{`${Math.floor(width / 100)} : ${
-            (width % 100 >= 10 ? '' : '0') + (width % 100)
+          <TimeNumber>{`${Math.floor(widthState / 100)} : ${
+            (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
           }`}</TimeNumber>
         </ProgressBar>
       </Progress>
@@ -103,10 +115,8 @@ const GameTimer = ({ width, score, gameOver, dispatch }) => {
 };
 
 GameTimer.propTypes = {
-  width: propTypes.number,
-  score: propTypes.number,
-  dispatch: propTypes.func,
-  gameOver: propTypes.bool
+  width: propTypes.object,
+  score: propTypes.number
 };
 
 export default React.memo(GameTimer);

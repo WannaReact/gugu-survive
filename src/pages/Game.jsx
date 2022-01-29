@@ -50,6 +50,7 @@ const Game = () => {
   const width = useRef(3000);
   const handler = useRef(null);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const answer = useRef();
 
   const gameLogic = useCallback(() => {
     if (+inputRef.current === numFirstRef.current * numSecondRef.current) {
@@ -71,6 +72,7 @@ const Game = () => {
     setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
     inputRef.current = '';
     setInp(inputRef.current);
+    answer.current.focus();
   }, []);
 
   const onChangeValue = (e) => {
@@ -107,8 +109,10 @@ const Game = () => {
   useEffect(() => {
     handler.current = debounce(() => {
       setWindowSize(window.innerWidth);
+      answer.current.focus();
     }, 100);
     window.addEventListener('resize', handler.current);
+    answer.current.focus();
     return () => window.removeEventListener('resize', handler.current);
   }, []);
 
@@ -117,11 +121,13 @@ const Game = () => {
       <GameTimer width={width} score={score} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
-      {windowSize > 768 ? (
-        <Answer type="number" value={inp} onChange={onChangeValue} />
-      ) : (
-        <Answer type="number" value={inp} disabled />
-      )}
+      <Answer
+        ref={answer}
+        type="number"
+        value={inp}
+        onChange={windowSize > 768 ? onChangeValue : null}
+        disabled={windowSize <= 768}
+      />
       <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />
     </Main>
   );

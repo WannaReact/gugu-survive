@@ -14,6 +14,7 @@ const Main = styled.main`
   width: 100vw;
   max-width: 770px;
   min-width: 320px;
+  overflow: hidden;
 `;
 
 const Answer = styled.input`

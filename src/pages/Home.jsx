@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Title from '../components/Title.jsx';
 import SPEC from '../constants/spec';
-import MEDIA_QUERY_END_POINT from '../constants/media-query.js';
 import COLOR from '../constants/color';
 import Button from '../components/Button.jsx';
 import Modal from '../components/modal/Modal.jsx';
@@ -11,14 +10,11 @@ import RegisterModalContent from '../components/modal/RegisterModalContent.jsx';
 import ExplainModalContent from '../components/modal/ExplainModalContent.jsx';
 
 const Container = styled.div`
-  width: ${SPEC.CONTAINER.MOBILE.width};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media screen and (min-width: ${MEDIA_QUERY_END_POINT}) {
-    width: ${SPEC.CONTAINER.DESKTOP.width};
-  }
+  width: 100vw;
 `;
 
 const ButtonSection = styled.section`

@@ -6,41 +6,49 @@ import Modal from '../modal/Modal';
 import pigeon from '../../assets/images/pigeon.png';
 import flame from '../../assets/images/flame.png';
 import COLOR from '../../constants/color';
+import MEDIA_QUERY_END_POINT from '../../constants/media-query';
 
 const Progress = styled.div`
+  position: relative;
   width: calc(100% - 50px);
-  border-radius: 50px;
-  background-color: ${COLOR.WHITE};
+  height: 90px;
 `;
 const ProgressBar = styled.div`
-  position: relative;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 30px;
   border-radius: 50px;
-  background-color: ${COLOR.PROGRESS_BAR};
 
   &::before {
     content: '';
     display: block;
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     left: 0;
-    bottom: 0;
-    transform: translateY(-40%);
+    top: 0;
+    transform: translateY(-100%);
     background-image: url(${flame});
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
+      width: 60px;
+      height: 60px;
+    }
   }
 `;
 
 const Pigeon = styled.img`
   position: absolute;
-  width: 54px;
-  height: 54px;
-  right: 0;
-  bottom: 0;
-  transform: scaleX(-1) translateY(-40%);
+  width: 40px;
+  height: 40px;
+  top: 0;
+  transform: scaleX(-1) translateX(40px) translateY(-90%);
+  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const TimeNumber = styled.p`
@@ -86,10 +94,17 @@ const GameTimer = ({ width, score, registerRecord }) => {
   return (
     <>
       <Progress>
-        <ProgressBar style={{ width: `${(widthState / 1500) * 90 + 10}%` }}>
+        <ProgressBar
+          style={{
+            background: `linear-gradient(90deg, ${COLOR.PROGRESS_BAR} 0%, ${
+              COLOR.PROGRESS_BAR
+            } ${(widthState / 1500) * 90 + 10}%, ${COLOR.WHITE} 0%)`
+          }}
+        >
           <Pigeon
             src={pigeon}
             style={{
+              left: `${(widthState / 1500) * 90 + 10}%`,
               filter: `opacity(${
                 widthState > 300 ? 1 : widthState / 1500 + 0.7
               }) drop-shadow(0 0 0 red)`

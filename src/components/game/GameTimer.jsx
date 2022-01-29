@@ -51,7 +51,7 @@ const TimeNumber = styled.p`
   width: 60px;
 `;
 
-const GameTimer = ({ width, score }) => {
+const GameTimer = ({ width, score, registerRecord }) => {
   const [widthState, setWidthState] = useState(width.current);
   const time = useRef(new Date());
   const timer = useRef(null);
@@ -75,6 +75,7 @@ const GameTimer = ({ width, score }) => {
   useEffect(() => {
     if (width.current === 0) {
       clearInterval(timer.current);
+      registerRecord();
       setGameOver((prev) => !prev);
     } else if (width.current > 1500) {
       width.current = 1500;
@@ -112,7 +113,8 @@ const GameTimer = ({ width, score }) => {
 
 GameTimer.propTypes = {
   width: propTypes.object,
-  score: propTypes.number
+  score: propTypes.number,
+  registerRecord: propTypes.func
 };
 
 export default React.memo(GameTimer);

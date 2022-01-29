@@ -75,6 +75,19 @@ const Game = () => {
     answer.current.focus();
   }, []);
 
+  const registerRecord = useCallback(() => {
+    fetch('/addRecord', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: localStorage.getItem('gamerName'),
+        score,
+        round,
+        combo
+      })
+    }).catch(() => alert('기록 등록에 실패했습니다!'));
+  }, [score, round, combo]);
+
   const onChangeValue = useCallback((e) => {
     inputRef.current = e.target.value;
     setInp(inputRef.current);
@@ -125,7 +138,7 @@ const Game = () => {
 
   return (
     <Main>
-      <GameTimer width={width} score={score} />
+      <GameTimer width={width} score={score} registerRecord={registerRecord} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
       <Answer

@@ -114,7 +114,7 @@ const Game = () => {
 
   return (
     <Main>
-      <GameTimer width={width} />
+      <GameTimer width={width} score={score} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
       {windowSize > 768 ? (

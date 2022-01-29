@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
+import ResultModalContent from '../modal/ResultModalContent';
+import Modal from '../modal/Modal';
 import pigeon from '../../assets/images/pigeon.png';
 import flame from '../../assets/images/flame.png';
 import COLOR from '../../constants/color';
@@ -60,10 +62,13 @@ const TimeNumber = styled.p`
   width: 60px;
 `;
 
-const GameTimer = ({ width }) => {
+const GameTimer = ({ width, score }) => {
   const [widthState, setWidthState] = useState(width.current);
   const time = useRef(new Date());
   const timer = useRef(null);
+  const [gameOver, setGameOver] = useState(false);
+
+  console.log(score);
 
   useEffect(() => {
     timer.current = setInterval(() => {
@@ -83,6 +88,7 @@ const GameTimer = ({ width }) => {
   useEffect(() => {
     if (width.current === 0) {
       clearInterval(timer.current);
+      setGameOver((prev) => !prev);
     } else if (width.current > 1500) {
       width.current = 1500;
       setWidthState(width.current);
@@ -90,21 +96,29 @@ const GameTimer = ({ width }) => {
   }, [width.current]);
 
   return (
-    <Progress>
-      <ProgressBar
+    <>
+      <Progress>
+        <ProgressBar
         style={{ width: `${(widthState / 1500) * 90 + 10}%` }}
         width={width.current}
       >
         <TimeNumber>{`${Math.floor(widthState / 100)} : ${
           (widthState % 100 >= 10 ? '' : '0') + (widthState % 100)
         }`}</TimeNumber>
-      </ProgressBar>
-    </Progress>
+        </ProgressBar>
+      </Progress>
+      {gameOver ? (
+        <Modal>
+          <ResultModalContent score={score} />
+        </Modal>
+      ) : null}
+    </>
   );
 };
 
 GameTimer.propTypes = {
-  width: propTypes.object
+  width: propTypes.object,
+  score: propTypes.number
 };
 
 export default React.memo(GameTimer);

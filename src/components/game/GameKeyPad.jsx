@@ -12,12 +12,10 @@ const KeyPad = styled.div`
   padding: 0px 92px;
 `;
 
-const GameKeyPad = ({ dispatch, answer }) => {
+const GameKeyPad = ({ dispatch, answer, width }) => {
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  // onClick={()=>setInp(item)} 하면 되는 줄 알았는데, 다른법 있나? 고차함수말고
-  console.log(answer);
   const onClickBtn = useCallback(() => {
-    dispatch({ type: 'GAME_LOGIC', answer });
+    dispatch({ type: 'GAME_LOGIC', answer, width });
   }, []);
 
   const keypadValue = useCallback(
@@ -49,9 +47,9 @@ const GameKeyPad = ({ dispatch, answer }) => {
 };
 
 GameKeyPad.propTypes = {
-  keypadValue: propTypes.func,
   dispatch: propTypes.func,
-  answer: propTypes.object
+  answer: propTypes.object,
+  width: propTypes.object
 };
 
 export default React.memo(GameKeyPad);

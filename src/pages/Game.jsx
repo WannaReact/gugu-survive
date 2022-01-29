@@ -41,9 +41,7 @@ const initialState = {
   round: 1,
   correctCount: 0,
   levelUp: 8,
-  windowSize: window.innerWidth,
-  width: 3000,
-  gameOver: false
+  windowSize: window.innerWidth
 };
 
 const reducer = (state, action) => {
@@ -54,15 +52,15 @@ const reducer = (state, action) => {
           ...state,
           combo: state.combo + 1,
           score: state.score + 100 + state.round * state.combo,
-          correctCount: state.correctCount + 1,
-          width: state.width + 300
+          correctCount: state.correctCount + 1
         };
+        action.width.current += 300;
       } else {
         state = {
           ...state,
-          combo: 0,
-          width: state.width - 100
+          combo: 0
         };
+        action.width.current -= 100;
       }
       if (state.correctCount > 0 && state.correctCount % 5 === 0) {
         state = {
@@ -97,66 +95,18 @@ const reducer = (state, action) => {
         windowSize: action.windowSize
       };
 
-    case 'CHANGE_TIMER': {
-      const { diff } = action;
-      if (state.width >= diff) {
-        return {
-          ...state,
-          width: state.width - diff
-        };
-      }
-      return {
-        ...state,
-        width: 0
-      };
-    }
-
-    case 'CHECK_TIMER': {
-      const { timer } = action;
-      if (state.width === 0) {
-        clearInterval(timer.current);
-        state = {
-          ...state,
-          gameOver: true
-        };
-      } else if (state.width > 1500) {
-        return {
-          ...state,
-          width: 1500
-        };
-      }
-      return state;
-    }
     default:
       return state;
   }
 };
 
-// 이제 문제점 1. 정답맞혔을 때 width 값 어떻게 늘려줄건지,  2. correct 카운트 어떻게 늘려주지?? 그냥 return 을 해버려서 도달할 수가 없네
-// 3. reducer 에서 함수형 업데이트가 있었나?? 4. 문제 맞혔을 때 useRef focus()를 못해주고있다
-
 const Game = () => {
-  // console.log('Game');
-
   const handler = useRef(null);
   const answer = useRef();
+  const width = useRef(3000);
 
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const {
-    inp,
-    numFirst,
-    numSecond,
-    score,
-    combo,
-    round,
-    windowSize,
-    width,
-    gameOver
-  } = state;
-
-  // const levelUp = useRef(8);
-  // const width = useRef(3000);
+  const { inp, numFirst, numSecond, score, combo, round, windowSize } = state;
 
   const onChangeValue = useCallback((e) => {
     dispatch({ type: 'CHANGE_VALUE', payload: e.target.value });
@@ -165,7 +115,7 @@ const Game = () => {
   const handleKeyDown = useCallback((e) => {
     const { key } = e;
     if (key === 'Enter') {
-      dispatch({ type: 'GAME_LOGIC' });
+      dispatch({ type: 'GAME_LOGIC', answer, width });
     }
   }, []);
 
@@ -191,12 +141,7 @@ const Game = () => {
 
   return (
     <Main>
-      <GameTimer
-        width={width}
-        score={score}
-        dispatch={dispatch}
-        gameOver={gameOver}
-      />
+      <GameTimer width={width} score={score} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
 
@@ -209,11 +154,9 @@ const Game = () => {
         disabled={windowSize <= 768}
       />
 
-      <GameKeyPad dispatch={dispatch} answer={answer} />
+      <GameKeyPad dispatch={dispatch} answer={answer} width={width} />
     </Main>
   );
 };
 
 export default Game;
-
-// 여기 inp 창에 숫자오르고 내리는거 없애줘

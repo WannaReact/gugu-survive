@@ -29,7 +29,7 @@ const RegisterModalContent = () => {
         gamerName={gamerName}
         setGamerName={setGamerName}
       />
-      <P>2~8글자로 입력해 주세요</P>
+      <P>2~8자의 한글, 영문, 숫자 가능</P>
       <Link to="/play" onClick={saveGamerName}>
         <ConfirmButton isDisabled={isDisabled}>확인</ConfirmButton>
       </Link>

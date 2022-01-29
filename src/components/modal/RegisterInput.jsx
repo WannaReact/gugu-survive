@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import propTypes from 'prop-types';
 import styled from 'styled-components';
 import COLOR from '../../constants/color';
@@ -28,15 +28,27 @@ const Input = styled.input`
 
 const RegisterInput = ({ gamerName, setGamerName, setIsDisabled }) => {
   console.log('RegisterInput');
-  const onInputChange = (e) => {
-    const { value } = e.target;
-    setGamerName(value);
-    if (value.length > 1) {
+  const canBeUpdate = useCallback((char) => {
+    const regex = /[^ㄱ-ㅎ가-힣a-zA-Z0-9]/;
+    if (!regex.test(char)) {
+      setGamerName(char);
+    }
+    return;
+  });
+
+  const validate = useCallback((name) => name.length > 1);
+
+  const onInputChange = useCallback((e) => {
+    let { value } = e.target;
+    value = value.substr(0, 8);
+    canBeUpdate(value);
+    const isValid = validate(value);
+    if (isValid) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  };
+  });
 
   return (
     <>

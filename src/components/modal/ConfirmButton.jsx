@@ -14,7 +14,7 @@ const ConfirmButton = ({ isDisabled }) => {
 };
 
 ConfirmButton.propTypes = {
-  isDisabled: propTypes.boolean
+  isDisabled: propTypes.bool
 };
 
 export default React.memo(ConfirmButton);

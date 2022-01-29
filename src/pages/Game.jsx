@@ -14,6 +14,7 @@ const Main = styled.main`
   width: 100vw;
   max-width: 770px;
   min-width: 320px;
+  overflow: hidden;
 `;
 
 const Answer = styled.input`
@@ -42,6 +43,8 @@ const Game = () => {
   const [score, setScore] = useState(0);
   const comboRef = useRef();
   const [combo, setCombo] = useState(0);
+  const maxComboRef = useRef(0);
+  const [maxCombo, setMaxCombo] = useState(0);
   const roundRef = useRef();
   const [round, setRound] = useState(1);
   const correctCountRef = useRef();
@@ -50,33 +53,59 @@ const Game = () => {
   const width = useRef(3000);
   const handler = useRef(null);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const answer = useRef();
 
   const gameLogic = useCallback(() => {
     if (+inputRef.current === numFirstRef.current * numSecondRef.current) {
-      setCombo((prev) => prev + 1);
       setScore((prev) => prev + 100 + roundRef.current * comboRef.current);
+      setCombo((prev) => prev + 1);
+      comboRef.current += 1;
+      if (maxComboRef.current < comboRef.current) {
+        setMaxCombo(() => comboRef.current);
+        maxComboRef.current = comboRef.current;
+      }
       setCorrectCount((prev) => prev + 1);
+      correctCountRef.current += 1;
       width.current += 300;
+      if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
+        setRound((prev) => prev + 1);
+        levelUp.current += 2;
+      }
     } else {
+      setCombo(0);
       comboRef.current = 0;
-      setCombo(comboRef.current);
       width.current -= 100;
-    }
-    if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
-      roundRef.current += 1;
-      setRound(roundRef.current);
-      levelUp.current += 1;
     }
     setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
     setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
-    inputRef.current = '';
+    setInp('');
+    answer.current.focus();
+  }, []);
+
+  const registerRecord = useCallback(() => {
+    fetch('/addRecord', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: localStorage.getItem('gamerName'),
+        score,
+        round,
+        combo: maxComboRef.current
+      })
+    }).catch(() => alert('기록 등록에 실패했습니다!'));
+  }, [score, round, maxCombo]);
+
+  const onChangeValue = useCallback((e) => {
+    inputRef.current = e.target.value;
     setInp(inputRef.current);
   }, []);
 
-  const onChangeValue = (e) => {
-    inputRef.current = e.target.value;
-    setInp(inputRef.current);
-  };
+  const handleKeyDown = useCallback((e) => {
+    const { key } = e;
+    if (key === 'Enter') {
+      gameLogic();
+    }
+  }, []);
 
   const keypadValue = useCallback(
     (item) => () => {
@@ -100,6 +129,7 @@ const Game = () => {
     numFirstRef.current = numFirst;
     numSecondRef.current = numSecond;
     comboRef.current = combo;
+    maxComboRef.current = maxCombo;
     roundRef.current = round;
     correctCountRef.current = correctCount;
   });
@@ -107,21 +137,26 @@ const Game = () => {
   useEffect(() => {
     handler.current = debounce(() => {
       setWindowSize(window.innerWidth);
+      answer.current.focus();
     }, 100);
     window.addEventListener('resize', handler.current);
+    answer.current.focus();
     return () => window.removeEventListener('resize', handler.current);
   }, []);
 
   return (
     <Main>
-      <GameTimer width={width} score={score} />
+      <GameTimer width={width} score={score} registerRecord={registerRecord} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
-      {windowSize > 768 ? (
-        <Answer type="number" value={inp} onChange={onChangeValue} />
-      ) : (
-        <Answer type="number" value={inp} disabled />
-      )}
+      <Answer
+        ref={answer}
+        type="number"
+        value={inp}
+        onChange={windowSize > 768 ? onChangeValue : null}
+        onKeyDown={windowSize > 768 ? handleKeyDown : null}
+        disabled={windowSize <= 768}
+      />
       <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />
     </Main>
   );

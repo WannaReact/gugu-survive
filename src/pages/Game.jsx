@@ -75,10 +75,17 @@ const Game = () => {
     answer.current.focus();
   }, []);
 
-  const onChangeValue = (e) => {
+  const onChangeValue = useCallback((e) => {
     inputRef.current = e.target.value;
     setInp(inputRef.current);
-  };
+  }, []);
+
+  const handleKeyDown = useCallback((e) => {
+    const { key } = e;
+    if (key === 'Enter') {
+      gameLogic();
+    }
+  }, []);
 
   const keypadValue = useCallback(
     (item) => () => {
@@ -126,6 +133,7 @@ const Game = () => {
         type="number"
         value={inp}
         onChange={windowSize > 768 ? onChangeValue : null}
+        onKeyDown={windowSize > 768 ? handleKeyDown : null}
         disabled={windowSize <= 768}
       />
       <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />

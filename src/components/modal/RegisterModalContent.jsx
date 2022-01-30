@@ -1,32 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../Button';
-import SPEC from '../../constants/spec';
-import COLOR from '../../constants/color';
+import RegisterInput from './RegisterInput';
+import ConfirmButton from './ConfirmButton';
 import MEDIA_QUERY_END_POINT from '../../constants/media-query';
-
-const Input = styled.input`
-  width: 239px;
-  height: 44px;
-  border: 2px solid ${COLOR.BLACK};
-  margin-bottom: 7px;
-  text-align: center;
-  font-size: 25px;
-  &::placeholder {
-    font-size: 25px;
-    color: ${COLOR.PLACEHOLDER};
-  }
-  @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
-    width: 482px;
-    height: 67px;
-    font-size: 35px;
-    margin-bottom: 9px;
-    &::placeholder {
-      font-size: 35px;
-    }
-  }
-`;
 
 const P = styled.p`
   font-size: 15px;
@@ -38,38 +15,23 @@ const P = styled.p`
 `;
 
 const RegisterModalContent = () => {
-  const [input, setInput] = useState('');
+  console.log('RegisterModalContent');
+  const [gamerName, setGamerName] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const checkButton = useRef();
-  const onInputChange = (e) => {
-    const { value } = e.target;
-    setInput(value);
-    if (value.length > 1) {
-      setIsDisabled(false);
-    }
-  };
+  const saveGamerName = useCallback(() => {
+    localStorage.setItem('gamerName', gamerName);
+  });
 
   return (
     <>
-      <Input
-        type="text"
-        name="name"
-        placeholder="이름을 입력하세요"
-        minLength={2}
-        maxLength={8}
-        value={input}
-        onChange={onInputChange}
+      <RegisterInput
+        setIsDisabled={setIsDisabled}
+        gamerName={gamerName}
+        setGamerName={setGamerName}
       />
-      <P>2~8글자로 입력해 주세요</P>
-      <Link to="/play">
-        <Button
-          ref={checkButton}
-          spec={SPEC.SMALL_BUTTON}
-          color={COLOR.YELLOW}
-          disabled={isDisabled}
-        >
-          확인
-        </Button>
+      <P>2~8자의 한글, 영문, 숫자 가능</P>
+      <Link to="/play" onClick={saveGamerName}>
+        <ConfirmButton isDisabled={isDisabled}>확인</ConfirmButton>
       </Link>
     </>
   );

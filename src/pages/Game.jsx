@@ -14,6 +14,7 @@ const Main = styled.main`
   width: 100vw;
   max-width: 770px;
   min-width: 320px;
+  overflow: hidden;
 `;
 
 const Answer = styled.input`
@@ -141,10 +142,9 @@ const Game = () => {
 
   return (
     <Main>
-      <GameTimer width={width} score={score} />
+      <GameTimer width={width} score={score} registerRecord={registerRecord} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />
-
       <Answer
         ref={answer}
         type="number"
@@ -153,7 +153,6 @@ const Game = () => {
         onKeyDown={windowSize > 768 ? handleKeyDown : null}
         disabled={windowSize <= 768}
       />
-
       <GameKeyPad dispatch={dispatch} answer={answer} width={width} />
     </Main>
   );

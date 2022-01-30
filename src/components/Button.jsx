@@ -24,7 +24,6 @@ const StyledButton = styled.button`
 `;
 
 const Button = ({ children, ...rest }) => {
-  console.log('버튼');
   return <StyledButton {...rest}>{children}</StyledButton>;
 };
 

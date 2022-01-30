@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import chicken from '../../assets/images/meat.png';
@@ -49,13 +49,14 @@ const ButtonSection = styled.div`
 `;
 
 const ResultModalContent = ({ score }) => {
+  const navigate = useNavigate();
   return (
     <>
       <Title>Game Over</Title>
       <Img src={chicken}></Img>
       <Score>{`${score}점`}</Score>
       <ButtonSection>
-        <Link to="/play">
+        <Link to="/play" onClick={() => navigate(0)}>
           <Button spec={SPEC.SMALL_BUTTON} color={COLOR.YELLOW}>
             다시하기
           </Button>

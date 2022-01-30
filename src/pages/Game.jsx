@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useRef, useReducer, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
@@ -33,86 +33,92 @@ const Answer = styled.input`
   }
 `;
 
+const initialState = {
+  inp: '',
+  numFirst: Math.ceil(Math.random() * 9),
+  numSecond: Math.ceil(Math.random() * 9),
+  score: 0,
+  combo: 0,
+  round: 1,
+  correctCount: 0,
+  levelUp: 8,
+  windowSize: window.innerWidth
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'GAME_LOGIC':
+      if (+state.inp === state.numFirst * state.numSecond) {
+        state = {
+          ...state,
+          combo: state.combo + 1,
+          score: state.score + 100 + state.round * state.combo,
+          correctCount: state.correctCount + 1
+        };
+        action.width.current += 300;
+      } else {
+        state = {
+          ...state,
+          combo: 0
+        };
+        action.width.current -= 100;
+      }
+      if (state.correctCount > 0 && state.correctCount % 5 === 0) {
+        state = {
+          ...state,
+          round: state.round + 1,
+          levelUp: state.levelUp + 1
+        };
+      }
+      action.answer.current.focus();
+      return {
+        ...state,
+        inp: '',
+        numFirst: Math.ceil(Math.random() * state.levelUp),
+        numSecond: Math.ceil(Math.random() * state.levelUp)
+      };
+
+    case 'CHANGE_VALUE':
+      return {
+        ...state,
+        inp: action.payload
+      };
+
+    case 'CHANGE_KEYPAD':
+      return {
+        ...state,
+        inp: state.inp + action.keypad
+      };
+
+    case 'CHANGE_WIDTH':
+      return {
+        ...state,
+        windowSize: action.windowSize
+      };
+
+    default:
+      return state;
+  }
+};
+
 const Game = () => {
-  const inputRef = useRef();
-  const [inp, setInp] = useState('');
-  const numFirstRef = useRef();
-  const [numFirst, setNumFirst] = useState(Math.ceil(Math.random() * 8) + 1);
-  const numSecondRef = useRef();
-  const [numSecond, setNumSecond] = useState(Math.ceil(Math.random() * 8) + 1);
-  const [score, setScore] = useState(0);
-  const comboRef = useRef();
-  const [combo, setCombo] = useState(0);
-  const maxComboRef = useRef(0);
-  const [maxCombo, setMaxCombo] = useState(0);
-  const roundRef = useRef();
-  const [round, setRound] = useState(1);
-  const correctCountRef = useRef();
-  const [correctCount, setCorrectCount] = useState(0);
-  const levelUp = useRef(8);
-  const width = useRef(3000);
   const handler = useRef(null);
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
   const answer = useRef();
+  const width = useRef(3000);
 
-  const gameLogic = useCallback(() => {
-    if (+inputRef.current === numFirstRef.current * numSecondRef.current) {
-      setScore((prev) => prev + 100 + roundRef.current * comboRef.current);
-      setCombo((prev) => prev + 1);
-      comboRef.current += 1;
-      if (maxComboRef.current < comboRef.current) {
-        setMaxCombo(() => comboRef.current);
-        maxComboRef.current = comboRef.current;
-      }
-      setCorrectCount((prev) => prev + 1);
-      correctCountRef.current += 1;
-      width.current += 300;
-      if (correctCountRef.current > 0 && correctCountRef.current % 5 === 0) {
-        setRound((prev) => prev + 1);
-        levelUp.current += 2;
-      }
-    } else {
-      setCombo(0);
-      comboRef.current = 0;
-      width.current -= 100;
-    }
-    setNumFirst(Math.ceil(Math.random() * levelUp.current) + 1);
-    setNumSecond(Math.ceil(Math.random() * levelUp.current) + 1);
-    setInp('');
-    answer.current.focus();
-  }, []);
-
-  const registerRecord = useCallback(() => {
-    fetch('/addRecord', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: localStorage.getItem('gamerName'),
-        score,
-        round,
-        combo: maxComboRef.current
-      })
-    }).catch(() => alert('기록 등록에 실패했습니다!'));
-  }, [score, round, maxCombo]);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { inp, numFirst, numSecond, score, combo, round, windowSize } = state;
 
   const onChangeValue = useCallback((e) => {
-    inputRef.current = e.target.value;
-    setInp(inputRef.current);
+    dispatch({ type: 'CHANGE_VALUE', payload: e.target.value });
   }, []);
 
   const handleKeyDown = useCallback((e) => {
     const { key } = e;
     if (key === 'Enter') {
-      gameLogic();
+      dispatch({ type: 'GAME_LOGIC', answer, width });
     }
   }, []);
-
-  const keypadValue = useCallback(
-    (item) => () => {
-      setInp((prev) => prev + item);
-    },
-    []
-  );
 
   const debounce = useCallback((callback, delay) => {
     let timer;
@@ -125,18 +131,8 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    inputRef.current = inp;
-    numFirstRef.current = numFirst;
-    numSecondRef.current = numSecond;
-    comboRef.current = combo;
-    maxComboRef.current = maxCombo;
-    roundRef.current = round;
-    correctCountRef.current = correctCount;
-  });
-
-  useEffect(() => {
     handler.current = debounce(() => {
-      setWindowSize(window.innerWidth);
+      dispatch({ type: 'CHANGE_WIDTH', windowSize: window.innerWidth });
       answer.current.focus();
     }, 100);
     window.addEventListener('resize', handler.current);
@@ -157,11 +153,9 @@ const Game = () => {
         onKeyDown={windowSize > 768 ? handleKeyDown : null}
         disabled={windowSize <= 768}
       />
-      <GameKeyPad keypadValue={keypadValue} gameLogic={gameLogic} />
+      <GameKeyPad dispatch={dispatch} answer={answer} width={width} />
     </Main>
   );
 };
 
 export default Game;
-
-// 여기 inp 창에 숫자오르고 내리는거 없애줘

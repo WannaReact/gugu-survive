@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import propTypes from 'prop-types';
 import Button from '../Button';
@@ -12,9 +12,18 @@ const KeyPad = styled.div`
   padding: 0px 92px;
 `;
 
-const GameKeyPad = ({ keypadValue, gameLogic }) => {
+const GameKeyPad = ({ dispatch, answer, width }) => {
   const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  // onClick={()=>setInp(item)} 하면 되는 줄 알았는데, 다른법 있나? 고차함수말고
+  const onClickBtn = useCallback(() => {
+    dispatch({ type: 'GAME_LOGIC', answer, width });
+  }, []);
+
+  const keypadValue = useCallback(
+    (item) => () => {
+      dispatch({ type: 'CHANGE_KEYPAD', keypad: item });
+    },
+    []
+  );
 
   return (
     <KeyPad>
@@ -30,7 +39,7 @@ const GameKeyPad = ({ keypadValue, gameLogic }) => {
           </Button>
         );
       })}
-      <Button spec={SPEC.INPUT_BUTTON} color={COLOR.RED} onClick={gameLogic}>
+      <Button spec={SPEC.INPUT_BUTTON} color={COLOR.RED} onClick={onClickBtn}>
         입력
       </Button>
     </KeyPad>
@@ -38,8 +47,9 @@ const GameKeyPad = ({ keypadValue, gameLogic }) => {
 };
 
 GameKeyPad.propTypes = {
-  keypadValue: propTypes.func,
-  gameLogic: propTypes.func
+  dispatch: propTypes.func,
+  answer: propTypes.object,
+  width: propTypes.object
 };
 
 export default React.memo(GameKeyPad);

@@ -27,7 +27,6 @@ const Input = styled.input`
 `;
 
 const RegisterInput = ({ gamerName, setGamerName, setIsDisabled }) => {
-  console.log('RegisterInput');
   const canBeUpdate = useCallback((char) => {
     const regex = /[^ㄱ-ㅎ가-힣a-zA-Z0-9]/;
     if (!regex.test(char)) {

@@ -15,7 +15,6 @@ const P = styled.p`
 `;
 
 const RegisterModalContent = () => {
-  console.log('RegisterModalContent');
   const [gamerName, setGamerName] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const saveGamerName = useCallback(() => {

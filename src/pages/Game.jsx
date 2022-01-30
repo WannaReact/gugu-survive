@@ -39,6 +39,7 @@ const initialState = {
   numSecond: Math.ceil(Math.random() * 9),
   score: 0,
   combo: 0,
+  maxCombo: 0,
   round: 1,
   correctCount: 0,
   levelUp: 8,
@@ -52,6 +53,7 @@ const reducer = (state, action) => {
         state = {
           ...state,
           combo: state.combo + 1,
+          maxCombo: Math.max(state.combo + 1, state.maxCombo),
           score: state.score + 100 + state.round * state.combo,
           correctCount: state.correctCount + 1
         };
@@ -107,7 +109,29 @@ const Game = () => {
   const width = useRef(3000);
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { inp, numFirst, numSecond, score, combo, round, windowSize } = state;
+  const {
+    inp,
+    numFirst,
+    numSecond,
+    score,
+    combo,
+    maxCombo,
+    round,
+    windowSize
+  } = state;
+
+  const registerRecord = useCallback(() => {
+    fetch('/addRecord', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: localStorage.getItem('gamerName'),
+        score,
+        round,
+        combo: maxCombo
+      })
+    }).catch(() => alert('기록 등록에 실패했습니다!'));
+  }, [score, round, maxCombo]);
 
   const onChangeValue = useCallback((e) => {
     dispatch({ type: 'CHANGE_VALUE', payload: e.target.value });

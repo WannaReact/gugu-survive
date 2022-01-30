@@ -35,8 +35,8 @@ const Answer = styled.input`
 
 const initialState = {
   inp: '',
-  numFirst: Math.ceil(Math.random() * 9),
-  numSecond: Math.ceil(Math.random() * 9),
+  numFirst: Math.floor(Math.random() * 8) + 2,
+  numSecond: Math.floor(Math.random() * 8) + 2,
   score: 0,
   combo: 0,
   maxCombo: 0,
@@ -76,8 +76,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         inp: '',
-        numFirst: Math.ceil(Math.random() * state.levelUp),
-        numSecond: Math.ceil(Math.random() * state.levelUp)
+        numFirst: Math.floor(Math.random() * state.levelUp) + 2,
+        numSecond: Math.floor(Math.random() * state.levelUp) + 2
       };
 
     case 'CHANGE_VALUE':

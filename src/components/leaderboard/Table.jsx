@@ -33,7 +33,7 @@ const Field = styled(Cell)`
       ${({ reverse }) => (reverse ? 'rotate(180deg)' : '')};
     width: 0;
     height: 0;
-    margin-left: 5px;
+    margin-left: 4px;
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
     border-top: 7px solid ${({ reverse }) => (reverse ? COLOR.RED : COLOR.BLUE)};

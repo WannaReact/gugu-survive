@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Acme';
+  src: url(../assets/fonts/Acme-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Yeon-Sung';
+  src: url(../assets/fonts/YeonSung-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url(../assets/fonts/NotoSansKR-Regular.otf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NotoSansMedium';
+  src: url(../assets/fonts/NotoSansKR-Medium.otf);
+  font-weight: 600;
+}
+
+body {
+  font-family: 'Acme';
+}

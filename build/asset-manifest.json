@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.64cdf322.css",
-    "main.js": "/static/js/main.0ac5b20c.js",
+    "main.js": "/static/js/main.5a3fb82d.js",
     "static/media/NotoSansKR-Medium.otf": "/static/media/NotoSansKR-Medium.72ba455576ce8174ffa8.otf",
     "static/media/NotoSansKR-Regular.otf": "/static/media/NotoSansKR-Regular.457762eaaf7bb2aa2893.otf",
     "static/media/YeonSung-Regular.ttf": "/static/media/YeonSung-Regular.7ed1d94edc5aa5a9e78a.ttf",
@@ -12,10 +12,10 @@
     "static/media/Acme-Regular.ttf": "/static/media/Acme-Regular.9f25ca8b2435fcab381a.ttf",
     "index.html": "/index.html",
     "main.64cdf322.css.map": "/static/css/main.64cdf322.css.map",
-    "main.0ac5b20c.js.map": "/static/js/main.0ac5b20c.js.map"
+    "main.5a3fb82d.js.map": "/static/js/main.5a3fb82d.js.map"
   },
   "entrypoints": [
     "static/css/main.64cdf322.css",
-    "static/js/main.0ac5b20c.js"
+    "static/js/main.5a3fb82d.js"
   ]
 }

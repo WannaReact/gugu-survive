@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../components/Button';
@@ -37,6 +38,9 @@ const HomeButton = styled(Button)`
 const Leaderboard = () => {
   return (
     <Container>
+      <Helmet>
+        <title>순위표</title>
+      </Helmet>
       <Title>순위표</Title>
       <Link to="/">
         <HomeButton color={COLOR.YELLOW} spec={SPEC.SMALL_BUTTON}>

@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
       .sort([
         [order, direction],
         [orders[0], direction],
-        [orders[1], direction]
+        [orders[1], direction],
+        ['_id', -direction]
       ])
       .limit(200);
     res.json(record);
@@ -33,9 +34,7 @@ router.post('/', async (req, res) => {
   });
   try {
     await record.save();
-    res.send(
-      `이름: ${username} | 점수: ${score} | 라운드: ${round} | 콤보: ${combo}`
-    );
+    res.send('success');
   } catch (err) {
     res.send(err);
   }

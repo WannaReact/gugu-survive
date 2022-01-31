@@ -10,7 +10,7 @@ const Row = styled(TableRow)`
   border-bottom: 1px solid ${COLOR.LIGHT_BORDER};
 `;
 
-const TableData = styled(Cell)`
+const TableData = styled(Cell).attrs({ as: 'td' })`
   color: ${COLOR.BLACK};
 `;
 
@@ -36,7 +36,12 @@ const Record = ({
   return (
     <Row>
       <TableData>{getRank(index)}</TableData>
-      <TableData flex={4}>{username}</TableData>
+      <TableData
+        flex={4}
+        style={{ minWidth: '100px', overflowWrap: 'break-word' }}
+      >
+        {username}
+      </TableData>
       <TableData flex={3}>{score}</TableData>
       <TableData flex={2}>{round}</TableData>
       <TableData flex={2}>{combo}</TableData>

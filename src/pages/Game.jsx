@@ -122,8 +122,12 @@ const Game = () => {
 
   const registerRecord = useCallback(() => {
     const username = localStorage.getItem('gamerName');
-    if ([username, score, round, combo].some((v) => !v)) return;
-    fetch('/addRecord', {
+    if (
+      !username ||
+      [score, round, maxCombo].some((v) => !Number.isInteger(v) || !v)
+    )
+      return;
+    fetch('/record', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

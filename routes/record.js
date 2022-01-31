@@ -3,7 +3,7 @@ const Record = require('../schemas/record');
 
 const router = express.Router();
 
-router.get('/leaderboard', async (req, res) => {
+router.get('/', async (req, res) => {
   const { order, isReverse } = req.query;
   const orders = ['score', 'round', 'combo'];
   orders.splice(orders.indexOf(order), 1);
@@ -13,10 +13,28 @@ router.get('/leaderboard', async (req, res) => {
       .sort([
         [order, direction],
         [orders[0], direction],
-        [orders[1], direction]
+        [orders[1], direction],
+        ['_id', -direction]
       ])
       .limit(200);
     res.json(record);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+router.post('/', async (req, res) => {
+  const { username, score, round, combo } = req.body;
+  if (!score) return;
+  const record = new Record({
+    username,
+    score,
+    round,
+    combo
+  });
+  try {
+    await record.save();
+    res.send('success');
   } catch (err) {
     res.send(err);
   }

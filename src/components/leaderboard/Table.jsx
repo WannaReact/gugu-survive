@@ -57,7 +57,7 @@ const TableBody = styled.tbody`
 const Table = () => {
   const [records, setRecords] = useState([]);
   useEffect(() => {
-    fetch('/leaderboard?order=score&isReverse=true')
+    fetch('/record?order=score&isReverse=true')
       .then((res) => res.json())
       .then((json) => {
         setRecords(json);
@@ -75,9 +75,7 @@ const Table = () => {
         isReverse.current = order.current !== 'username';
       }
       fetch(
-        `/leaderboard?order=${order.current}&isReverse=${
-          isReverse.current || ''
-        }`
+        `/record?order=${order.current}&isReverse=${isReverse.current || ''}`
       )
         .then((res) => res.json())
         .then((json) => setRecords(json));

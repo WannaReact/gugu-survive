@@ -3,7 +3,7 @@ const Record = require('../schemas/record');
 
 const router = express.Router();
 
-router.get('/leaderboard', async (req, res) => {
+router.get('/', async (req, res) => {
   const { order, isReverse } = req.query;
   const orders = ['score', 'round', 'combo'];
   orders.splice(orders.indexOf(order), 1);
@@ -17,6 +17,25 @@ router.get('/leaderboard', async (req, res) => {
       ])
       .limit(200);
     res.json(record);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+router.post('/', async (req, res) => {
+  const { username, score, round, combo } = req.body;
+  if (!score) return;
+  const record = new Record({
+    username,
+    score,
+    round,
+    combo
+  });
+  try {
+    await record.save();
+    res.send(
+      `이름: ${username} | 점수: ${score} | 라운드: ${round} | 콤보: ${combo}`
+    );
   } catch (err) {
     res.send(err);
   }

@@ -2,8 +2,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const addRecordRoute = require('./routes/addRecord');
-const leaderboardRoute = require('./routes/leaderboard');
+const recordRoute = require('./routes/record');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -20,9 +19,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true }, (err) => {
 app.use(express.static(path.resolve(__dirname, './build')));
 app.use(express.json());
 
-app.use('/', addRecordRoute);
-
-app.use('/', leaderboardRoute);
+app.use('/record', recordRoute);
 
 app.use('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './build/index.html'));

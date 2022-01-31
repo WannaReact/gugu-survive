@@ -10,6 +10,9 @@ const StyledButton = styled.button`
   background-color: ${({ color }) => color};
   font-family: ${({ spec }) => spec.MOBILE.fontFamily};
   font-size: ${({ spec }) => spec.MOBILE.fontSize};
+  &:hover {
+    background-color: ${({ color }) => `${color}CC`};
+  }
   @media screen and (min-width: ${MEDIA_QUERY_END_POINT.MOBILE}) {
     ${({ spec }) =>
       spec.DESKTOP

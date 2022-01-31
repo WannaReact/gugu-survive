@@ -1,4 +1,5 @@
 import React, { useRef, useReducer, useCallback, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 import GameTimer from '../components/game/GameTimer';
 import GameKeyPad from '../components/game/GameKeyPad';
@@ -172,6 +173,9 @@ const Game = () => {
 
   return (
     <Main>
+      <Helmet>
+        <title>Save GuGu!!</title>
+      </Helmet>
       <GameTimer width={width} score={score} registerRecord={registerRecord} />
       <GameInfo score={score} combo={combo} round={round} />
       <Problem numFirst={numFirst} numSecond={numSecond} />

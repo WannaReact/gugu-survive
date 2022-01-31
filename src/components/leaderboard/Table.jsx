@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import TableRow from './TableRow';
 import Cell from './Cell';
 import Record from './Record';
@@ -54,20 +54,47 @@ const TableBody = styled.tbody`
   }
 `;
 
+const SpinnerWrapper = styled.tr`
+  position: relative;
+  height: 100vh;
+  background-color: ${COLOR.WHITE};
+`;
+
+const spinnerAnimation = keyframes`
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+`;
+
+const Spinner = styled.td`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border: 10px solid;
+  border-color: ${COLOR.BLUE} transparent transparent transparent;
+  border-radius: 50%;
+  animation: ${spinnerAnimation} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation-delay: ${({ delay }) => delay ?? 0}s;
+`;
+
 const Table = () => {
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState(null);
   useEffect(() => {
     fetch('/record?order=score&isReverse=true')
       .then((res) => res.json())
-      .then((json) => {
-        setRecords(json);
-      });
+      .then((json) => setRecords(json));
   }, []);
   const order = useRef('score');
   const isReverse = useRef(true);
 
   const fetchLeaderboard = useCallback((sortOrder) => {
     return () => {
+      setRecords(null);
       if (order.current === sortOrder) {
         isReverse.current = !isReverse.current;
       } else {
@@ -117,18 +144,27 @@ const Table = () => {
           </Field>
         </TableRow>
       </TableHead>
-      <TableBody records={records}>
-        {records.map((record, index) => {
-          return (
-            <Record
-              key={record._id}
-              index={index}
-              record={record}
-              length={records.length}
-              reverse={isReverse}
-            />
-          );
-        })}
+      <TableBody>
+        {records ? (
+          records.map((record, index) => {
+            return (
+              <Record
+                key={record._id}
+                index={index}
+                record={record}
+                length={records.length}
+                reverse={isReverse}
+              />
+            );
+          })
+        ) : (
+          <SpinnerWrapper>
+            <Spinner delay={-0.45} />
+            <Spinner delay={-0.3} />
+            <Spinner delay={-0.15} />
+            <Spinner />
+          </SpinnerWrapper>
+        )}
       </TableBody>
     </TableContainer>
   );

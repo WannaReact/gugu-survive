@@ -1,4 +1,4 @@
-/*! For license information please see main.5a3fb82d.js.LICENSE.txt */
+/*! For license information please see main.a8dbfc5b.js.LICENSE.txt */
 !(function () {
   var e = {
       110: function (e, t, n) {
@@ -12894,8 +12894,11 @@
         yr,
         br,
         wr,
-        xr = ['children'],
-        Sr = xn.button(
+        xr,
+        Sr,
+        kr,
+        Er = ['children'],
+        Cr = xn.button(
           Mn ||
             (Mn = $e([
               '\n  width: ',
@@ -12904,7 +12907,8 @@
               ';\n  background-color: ',
               ';\n  font-family: ',
               ';\n  font-size: ',
-              ';\n  @media screen and (min-width: ',
+              ';\n  &:hover {\n    background-color: ',
+              ';\n  }\n  @media screen and (min-width: ',
               ') {\n    ',
               '\n  }\n'
             ])),
@@ -12926,6 +12930,10 @@
           function (e) {
             return e.spec.MOBILE.fontSize;
           },
+          function (e) {
+            var t = e.color;
+            return ''.concat(t, 'CC');
+          },
           kn.MOBILE,
           function (e) {
             var t = e.spec;
@@ -12939,13 +12947,13 @@
               : { display: 'none' };
           }
         ),
-        kr = function (e) {
+        Or = function (e) {
           var t = e.children,
-            n = Nn(e, xr);
-          return (0, En.jsx)(Sr, In(In({}, n), {}, { children: t }));
+            n = Nn(e, Er);
+          return (0, En.jsx)(Cr, In(In({}, n), {}, { children: t }));
         },
-        Er = e.memo(kr),
-        Cr = function (n) {
+        Tr = e.memo(Or),
+        _r = function (n) {
           var r = n.children,
             a = n.elementId,
             o = (0, e.useMemo)(
@@ -12956,7 +12964,7 @@
             );
           return (0, t.createPortal)(r, o);
         },
-        Or = xn.div(
+        Pr = xn.div(
           Dn ||
             (Dn = $e([
               '\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: ',
@@ -12964,7 +12972,7 @@
             ])),
           An.MODAL_BACKGROUND
         ),
-        Tr = xn.div(
+        Lr = xn.div(
           zn ||
             (zn = $e([
               '\n  position: relative;\n  background-color: ',
@@ -12978,14 +12986,14 @@
           kn.MOBILE,
           Ln.MODAL.DESKTOP.width
         ),
-        _r = function (t) {
+        Ar = function (t) {
           var n = t.openModalHandler,
             r = t.children;
-          return (0, En.jsx)(Cr, {
+          return (0, En.jsx)(_r, {
             elementId: 'modal-root',
-            children: (0, En.jsx)(Or, {
+            children: (0, En.jsx)(Pr, {
               onClick: n,
-              children: (0, En.jsx)(Tr, {
+              children: (0, En.jsx)(Lr, {
                 onClick: function (e) {
                   e.stopPropagation();
                 },
@@ -12994,7 +13002,7 @@
             })
           });
         },
-        Pr = xn.input(
+        jr = xn.input(
           Fn ||
             (Fn = $e([
               '\n  width: 239px;\n  height: 44px;\n  border: 2px solid ',
@@ -13006,7 +13014,7 @@
           An.PLACEHOLDER,
           kn.MOBILE
         ),
-        Lr = function (t) {
+        Rr = function (t) {
           var n = t.gamerName,
             r = t.setGamerName,
             a = t.setIsDisabled,
@@ -13023,7 +13031,7 @@
               a(!n);
             });
           return (0, En.jsx)(En.Fragment, {
-            children: (0, En.jsx)(Pr, {
+            children: (0, En.jsx)(jr, {
               type: 'text',
               placeholder: '\uc774\ub984\uc744 \uc785\ub825\ud558\uc138\uc694',
               minLength: 2,
@@ -13033,18 +13041,18 @@
             })
           });
         },
-        Ar = e.memo(Lr),
-        jr = function (e) {
+        Ir = e.memo(Rr),
+        Nr = function (e) {
           var t = e.isDisabled;
-          return (0, En.jsx)(Er, {
+          return (0, En.jsx)(Tr, {
             spec: Ln.SMALL_BUTTON,
             color: An.YELLOW,
             disabled: t,
             children: '\ud655\uc778'
           });
         },
-        Rr = e.memo(jr),
-        Ir = xn.p(
+        Mr = e.memo(Nr),
+        Dr = xn.p(
           Bn ||
             (Bn = $e([
               '\n  font-size: 15px;\n  margin-bottom: 13px;\n  @media screen and (min-width: ',
@@ -13052,7 +13060,7 @@
             ])),
           kn.MOBILE
         ),
-        Nr = function () {
+        zr = function () {
           var t = ee((0, e.useState)(''), 2),
             n = t[0],
             r = t[1],
@@ -13064,19 +13072,19 @@
             });
           return (0, En.jsxs)(En.Fragment, {
             children: [
-              (0, En.jsx)(Ar, {
+              (0, En.jsx)(Ir, {
                 setIsDisabled: i,
                 gamerName: n,
                 setGamerName: r
               }),
-              (0, En.jsx)(Ir, {
+              (0, En.jsx)(Dr, {
                 children:
                   '2~8\uc790\uc758 \ud55c\uae00, \uc601\ubb38, \uc22b\uc790 \uac00\ub2a5'
               }),
               (0, En.jsx)(He, {
                 to: '/play',
                 onClick: l,
-                children: (0, En.jsx)(Rr, {
+                children: (0, En.jsx)(Mr, {
                   isDisabled: o,
                   children: '\ud655\uc778'
                 })
@@ -13084,7 +13092,7 @@
             ]
           });
         },
-        Mr = xn.h2(
+        Fr = xn.h2(
           Un ||
             (Un = $e([
               "\n  font-family: 'Yeon-Sung';\n  font-size: 30px;\n  font-weight: 600;\n  margin-bottom: 22px;\n  @media screen and (min-width: ",
@@ -13092,7 +13100,7 @@
             ])),
           kn.MOBILE
         ),
-        Dr = xn.p(
+        Br = xn.p(
           Hn ||
             (Hn = $e([
               '\n  font-size: 19px;\n  line-height: 1.3;\n  margin-bottom: 22px;\n  @media screen and (min-width: ',
@@ -13100,7 +13108,7 @@
             ])),
           kn.MOBILE
         ),
-        zr = xn.br(
+        Ur = xn.br(
           $n ||
             ($n = $e([
               '\n  @media screen and (min-width: ',
@@ -13108,7 +13116,7 @@
             ])),
           kn.MOBILE
         ),
-        Fr = xn.br(
+        Hr = xn.br(
           Wn ||
             (Wn = $e([
               '\n  display: none;\n  @media screen and (min-width: ',
@@ -13116,50 +13124,50 @@
             ])),
           kn.MOBILE
         ),
-        Br = function (e) {
+        $r = function (e) {
           var t = e.openModalHandler;
           return (0, En.jsxs)(En.Fragment, {
             children: [
-              (0, En.jsx)(Mr, { children: '\uac8c\uc784 \uc124\uba85' }),
-              (0, En.jsxs)(Dr, {
+              (0, En.jsx)(Fr, { children: '\uac8c\uc784 \uc124\uba85' }),
+              (0, En.jsxs)(Br, {
                 children: [
                   '\uc6b0\ub9ac\uc758 \uc720\ud574\uc870\uc218 \ube44\ub458\uae30 \uad6c\uad6c\ub97c ',
-                  (0, En.jsx)(Fr, {}),
+                  (0, En.jsx)(Hr, {}),
                   ' \ud1b5\uad6c\uc774\uac00 \ub420 \uc6b4\uba85\uc5d0\uc11c',
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Ur, {}),
                   '\uad6c\ud574\uc8fc\uc138\uc694!'
                 ]
               }),
-              (0, En.jsx)(Dr, { children: '\ub450\ub1cc \ud480\uac00\ub3d9!' }),
-              (0, En.jsx)(Mr, { children: '\uac8c\uc784 \uaddc\uce59' }),
-              (0, En.jsxs)(Dr, {
+              (0, En.jsx)(Br, { children: '\ub450\ub1cc \ud480\uac00\ub3d9!' }),
+              (0, En.jsx)(Fr, { children: '\uac8c\uc784 \uaddc\uce59' }),
+              (0, En.jsxs)(Br, {
                 children: [
                   '\uac8c\uc784 \uc2dc\uc791 \uc2dc \uc81c\ud55c\uc2dc\uac04 ',
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Ur, {}),
                   '30\ucd08\uac00 \ubd80\uc5ec\ub429\ub2c8\ub2e4.'
                 ]
               }),
-              (0, En.jsxs)(Dr, {
+              (0, En.jsxs)(Br, {
                 children: [
                   '\uad6c\uad6c\ub2e8 \ubb38\uc81c\ub97c \ub9de\ucd9c \ub54c\ub9c8\ub2e4',
-                  (0, En.jsx)(Fr, {}),
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Hr, {}),
+                  (0, En.jsx)(Ur, {}),
                   ' \uc81c\ud55c \uc2dc\uac04 3\ucd08\uac00 \ucd94\uac00\ub418\uace0,',
-                  (0, En.jsx)(Fr, {}),
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Hr, {}),
+                  (0, En.jsx)(Ur, {}),
                   ' \ud2c0\ub9b4 \ub54c\ub9c8\ub2e4 1\ucd08\uac00 \uac10\uc18c\ud569\ub2c8\ub2e4.'
                 ]
               }),
-              (0, En.jsxs)(Dr, {
+              (0, En.jsxs)(Br, {
                 children: [
                   '5\ubb38\uc81c\ub97c \ub9de\ud790 \ub54c\ub9c8\ub2e4 ',
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Ur, {}),
                   '\ub2e4\uc74c \ub77c\uc6b4\ub4dc\ub85c \ub118\uc5b4\uac00\uba70,',
-                  (0, En.jsx)(zr, {}),
+                  (0, En.jsx)(Ur, {}),
                   ' \ub09c\uc774\ub3c4\uac00 \uc810\uc810 \ub192\uc544\uc9d1\ub2c8\ub2e4.'
                 ]
               }),
-              (0, En.jsx)(Er, {
+              (0, En.jsx)(Tr, {
                 spec: Ln.SMALL_BUTTON,
                 color: An.YELLOW,
                 onClick: t,
@@ -13168,16 +13176,16 @@
             ]
           });
         },
-        Ur = xn.div(
+        Wr = xn.div(
           Vn ||
             (Vn = $e([
               '\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n'
             ]))
         ),
-        Hr = xn.section(
+        Vr = xn.section(
           Kn || (Kn = $e(['\n  display: flex;\n  flex-direction: column;\n']))
         ),
-        $r = function () {
+        Kr = function () {
           var t = ee((0, e.useState)(!1), 2),
             n = t[0],
             r = t[1],
@@ -13187,10 +13195,10 @@
             l = function (e) {
               switch (e) {
                 case 'start':
-                  i((0, En.jsx)(Nr, {})), r(!n);
+                  i((0, En.jsx)(zr, {})), r(!n);
                   break;
                 case 'explain':
-                  i((0, En.jsx)(Br, {})), r(!n);
+                  i((0, En.jsx)($r, {})), r(!n);
                   break;
                 default:
                   return;
@@ -13198,12 +13206,12 @@
             };
           return (0, En.jsxs)(En.Fragment, {
             children: [
-              (0, En.jsxs)(Ur, {
+              (0, En.jsxs)(Wr, {
                 children: [
                   (0, En.jsx)(Pn, {}),
-                  (0, En.jsxs)(Hr, {
+                  (0, En.jsxs)(Vr, {
                     children: [
-                      (0, En.jsx)(Er, {
+                      (0, En.jsx)(Tr, {
                         spec: Ln.BIG_BUTTON,
                         color: An.RED,
                         style: { marginBottom: '23px' },
@@ -13212,7 +13220,7 @@
                         },
                         children: '\uac8c\uc784 \uc2dc\uc791'
                       }),
-                      (0, En.jsx)(Er, {
+                      (0, En.jsx)(Tr, {
                         spec: Ln.BIG_BUTTON,
                         color: An.YELLOW,
                         style: { marginBottom: '23px' },
@@ -13223,7 +13231,7 @@
                       }),
                       (0, En.jsx)(He, {
                         to: '/leaderboard',
-                        children: (0, En.jsx)(Er, {
+                        children: (0, En.jsx)(Tr, {
                           spec: Ln.BIG_BUTTON,
                           color: An.BLUE,
                           style: { marginBottom: '23px' },
@@ -13235,7 +13243,7 @@
                 ]
               }),
               n &&
-                (0, En.jsx)(_r, {
+                (0, En.jsx)(Ar, {
                   openModalHandler: function () {
                     r(!n);
                   },
@@ -13244,8 +13252,8 @@
             ]
           });
         },
-        Wr = n(718),
-        Vr = xn.h2(
+        Yr = n(718),
+        Gr = xn.h2(
           Yn ||
             (Yn = $e([
               "\n  font-family: 'Acme';\n  font-size: 40px;\n  font-weight: 600;\n  margin-bottom: 10px;\n  @media screen and (min-width: ",
@@ -13253,7 +13261,7 @@
             ])),
           kn.MOBILE
         ),
-        Kr = xn.img(
+        qr = xn.img(
           Gn ||
             (Gn = $e([
               '\n  display: block;\n  width: 120px;\n  height: 120px;\n  margin: 0 auto 17px;\n  @media screen and (min-width: ',
@@ -13261,7 +13269,7 @@
             ])),
           kn.MOBILE
         ),
-        Yr = xn.span(
+        Qr = xn.span(
           qn ||
             (qn = $e([
               "\n  display: block;\n  font-family: 'NotoSans';\n  font-size: 35px;\n  font-weight: 400;\n  margin-bottom: 16px;\n  @media screen and (min-width: ",
@@ -13269,28 +13277,28 @@
             ])),
           kn.MOBILE
         ),
-        Gr = xn.div(
+        Xr = xn.div(
           Qn ||
             (Qn = $e([
               '\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n  max-width: 404px;\n  margin: 0 auto;\n'
             ]))
         ),
-        qr = function (e) {
+        Jr = function (e) {
           var t = e.score,
             n = xe();
           return (0, En.jsxs)(En.Fragment, {
             children: [
-              (0, En.jsx)(Vr, { children: 'Game Over' }),
-              (0, En.jsx)(Kr, { src: Wr }),
-              (0, En.jsx)(Yr, { children: ''.concat(t, '\uc810') }),
-              (0, En.jsxs)(Gr, {
+              (0, En.jsx)(Gr, { children: 'Game Over' }),
+              (0, En.jsx)(qr, { src: Yr }),
+              (0, En.jsx)(Qr, { children: ''.concat(t, '\uc810') }),
+              (0, En.jsxs)(Xr, {
                 children: [
                   (0, En.jsx)(He, {
                     to: '/play',
                     onClick: function () {
                       return n(0);
                     },
-                    children: (0, En.jsx)(Er, {
+                    children: (0, En.jsx)(Tr, {
                       spec: Ln.SMALL_BUTTON,
                       color: An.YELLOW,
                       children: '\ub2e4\uc2dc\ud558\uae30'
@@ -13298,7 +13306,7 @@
                   }),
                   (0, En.jsx)(He, {
                     to: '/leaderboard',
-                    children: (0, En.jsx)(Er, {
+                    children: (0, En.jsx)(Tr, {
                       spec: Ln.SMALL_BUTTON,
                       color: An.BLUE,
                       children: '\uc21c\uc704\ud45c'
@@ -13309,24 +13317,24 @@
             ]
           });
         },
-        Qr = n(699),
-        Xr = xn.div(
+        Zr = n(699),
+        ea = xn.div(
           Xn ||
             (Xn = $e([
               '\n  position: relative;\n  width: calc(100% - 50px);\n  height: 90px;\n'
             ]))
         ),
-        Jr = xn.div(
+        ta = xn.div(
           Jn ||
             (Jn = $e([
               "\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  height: 30px;\n  border-radius: 50px;\n\n  &::before {\n    content: '';\n    display: block;\n    position: absolute;\n    width: 40px;\n    height: 40px;\n    left: 0;\n    top: 0;\n    transform: translateY(-100%);\n    background-image: url(",
               ');\n    background-size: 100% 100%;\n    background-repeat: no-repeat;\n    @media screen and (min-width: ',
               ') {\n      width: 60px;\n      height: 60px;\n    }\n  }\n'
             ])),
-          Qr,
+          Zr,
           kn.MOBILE
         ),
-        Zr = xn.img(
+        na = xn.img(
           Zn ||
             (Zn = $e([
               '\n  position: absolute;\n  width: 40px;\n  height: 40px;\n  top: 0;\n  transform: scaleX(-1) translateX(40px) translateY(-90%);\n  @media screen and (min-width: ',
@@ -13334,13 +13342,13 @@
             ])),
           kn.MOBILE
         ),
-        ea = xn.p(
+        ra = xn.p(
           er ||
             (er = $e([
               '\n  position: absolute;\n  top: 50%;\n  left: 15px;\n  transform: translateY(-50%);\n  width: 60px;\n'
             ]))
         ),
-        ta = function (t) {
+        aa = function (t) {
           var n = t.width,
             r = t.score,
             a = t.registerRecord,
@@ -13381,8 +13389,8 @@
             ),
             (0, En.jsxs)(En.Fragment, {
               children: [
-                (0, En.jsx)(Xr, {
-                  children: (0, En.jsxs)(Jr, {
+                (0, En.jsx)(ea, {
+                  children: (0, En.jsxs)(ta, {
                     style: {
                       background: 'linear-gradient(90deg, '
                         .concat(An.PROGRESS_BAR, ' 0%, ')
@@ -13391,7 +13399,7 @@
                         .concat(An.WHITE, ' 0%)')
                     },
                     children: [
-                      (0, En.jsx)(Zr, {
+                      (0, En.jsx)(na, {
                         src: Sn,
                         style: {
                           left: ''.concat((i / 1500) * 90 + 10, '%'),
@@ -13401,7 +13409,7 @@
                           )
                         }
                       }),
-                      (0, En.jsx)(ea, {
+                      (0, En.jsx)(ra, {
                         children: ''
                           .concat(Math.floor(i / 100), ' : ')
                           .concat((i % 100 >= 10 ? '' : '0') + (i % 100))
@@ -13410,20 +13418,20 @@
                   })
                 }),
                 f
-                  ? (0, En.jsx)(_r, { children: (0, En.jsx)(qr, { score: r }) })
+                  ? (0, En.jsx)(Ar, { children: (0, En.jsx)(Jr, { score: r }) })
                   : null
               ]
             })
           );
         },
-        na = e.memo(ta),
-        ra = xn.div(
+        oa = e.memo(aa),
+        ia = xn.div(
           tr ||
             (tr = $e([
               '\n  display: grid;\n  grid-template-columns: repeat(3, 60px);\n  gap: 13px;\n  padding: 0px 92px;\n'
             ]))
         ),
-        aa = function (t) {
+        la = function (t) {
           var n = t.dispatch,
             r = t.answer,
             a = t.width,
@@ -13435,13 +13443,13 @@
                 n({ type: 'CHANGE_KEYPAD', keypad: e });
               };
             }, []);
-          return (0, En.jsxs)(ra, {
+          return (0, En.jsxs)(ia, {
             children: [
               [1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map(function (e) {
                 return (0,
-                En.jsx)(Er, { spec: Ln.NUM_PAD, color: An.NUM_PAD, onClick: i(e), children: ''.concat(e) }, e);
+                En.jsx)(Tr, { spec: Ln.NUM_PAD, color: An.NUM_PAD, onClick: i(e), children: ''.concat(e) }, e);
               }),
-              (0, En.jsx)(Er, {
+              (0, En.jsx)(Tr, {
                 spec: Ln.INPUT_BUTTON,
                 color: An.RED,
                 onClick: o,
@@ -13450,19 +13458,19 @@
             ]
           });
         },
-        oa = e.memo(aa),
-        ia = xn.div(
+        ua = e.memo(la),
+        sa = xn.div(
           nr ||
             (nr = $e([
               '\n  display: flex;\n  justify-content: space-between;\n  width: calc(100% - 50px);\n'
             ]))
         ),
-        la = function (e) {
+        ca = function (e) {
           var t = e.score,
             n = e.combo,
             r = e.round;
           return (0, En.jsx)(En.Fragment, {
-            children: (0, En.jsxs)(ia, {
+            children: (0, En.jsxs)(sa, {
               children: [
                 (0, En.jsxs)('div', {
                   children: [
@@ -13475,26 +13483,26 @@
             })
           });
         },
-        ua = e.memo(la),
-        sa = xn.p(
+        fa = e.memo(ca),
+        da = xn.p(
           rr ||
             (rr = $e([
               '\n  font-size: 80px;\n  line-height: 101px;\n  text-align: center;\n'
             ]))
         ),
-        ca = function (e) {
+        pa = function (e) {
           var t = e.numFirst,
             n = e.numSecond;
-          return (0, En.jsx)(sa, { children: ''.concat(t, ' X ').concat(n) });
+          return (0, En.jsx)(da, { children: ''.concat(t, ' X ').concat(n) });
         },
-        fa = e.memo(ca),
-        da = xn.main(
+        ha = e.memo(pa),
+        ma = xn.main(
           ar ||
             (ar = $e([
               '\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  width: 100vw;\n  max-width: 770px;\n  min-width: 320px;\n  overflow: hidden;\n'
             ]))
         ),
-        pa = xn.input(
+        ga = xn.input(
           or ||
             (or = $e([
               '\n  width: 206px;\n  height: 64px;\n  border: 2px solid ',
@@ -13504,7 +13512,7 @@
           An.BLACK,
           An.WHITE
         ),
-        ha = {
+        va = {
           inp: '',
           numFirst: Math.floor(8 * Math.random()) + 2,
           numSecond: Math.floor(8 * Math.random()) + 2,
@@ -13516,7 +13524,7 @@
           levelUp: 8,
           windowSize: window.innerWidth
         },
-        ma = function (e, t) {
+        ya = function (e, t) {
           switch (t.type) {
             case 'GAME_LOGIC':
               return (
@@ -13562,11 +13570,11 @@
               return e;
           }
         },
-        ga = function () {
+        ba = function () {
           var t = (0, e.useRef)(null),
             n = (0, e.useRef)(),
             r = (0, e.useRef)(3e3),
-            a = ee((0, e.useReducer)(ma, ha), 2),
+            a = ee((0, e.useReducer)(ya, va), 2),
             o = a[0],
             i = a[1],
             l = o.inp,
@@ -13628,15 +13636,15 @@
                 }
               );
             }, []),
-            (0, En.jsxs)(da, {
+            (0, En.jsxs)(ma, {
               children: [
                 (0, En.jsx)(J, {
                   children: (0, En.jsx)('title', { children: 'Save GuGu!!' })
                 }),
-                (0, En.jsx)(na, { width: r, score: c, registerRecord: m }),
-                (0, En.jsx)(ua, { score: c, combo: f, round: p }),
-                (0, En.jsx)(fa, { numFirst: u, numSecond: s }),
-                (0, En.jsx)(pa, {
+                (0, En.jsx)(oa, { width: r, score: c, registerRecord: m }),
+                (0, En.jsx)(fa, { score: c, combo: f, round: p }),
+                (0, En.jsx)(ha, { numFirst: u, numSecond: s }),
+                (0, En.jsx)(ga, {
                   ref: n,
                   type: 'number',
                   value: l,
@@ -13644,13 +13652,13 @@
                   onKeyDown: h > 768 ? v : null,
                   disabled: h <= 768
                 }),
-                (0, En.jsx)(oa, { dispatch: i, answer: n, width: r })
+                (0, En.jsx)(ua, { dispatch: i, answer: n, width: r })
               ]
             })
           );
         },
-        va = ['children'],
-        ya = xn.tr(
+        wa = ['children'],
+        xa = xn.tr(
           ir ||
             (ir = $e([
               '\n  flex: 1;\n  display: flex;\n  align-items: center;\n  height: 100%;\n  padding: 0 10px;\n  @media screen and (min-width: ',
@@ -13658,17 +13666,16 @@
             ])),
           kn.MOBILE
         ),
-        ba = function (e) {
+        Sa = function (e) {
           var t = e.children,
-            n = Nn(e, va);
-          return (0, En.jsx)(ya, In(In({}, n), {}, { children: t }));
+            n = Nn(e, wa);
+          return (0, En.jsx)(xa, In(In({}, n), {}, { children: t }));
         },
-        wa = ['children'],
-        xa = xn.th(
+        ka = xn.th(
           lr ||
             (lr = $e([
               '\n  flex: ',
-              ";\n  font-family: 'NotoSans', sans-serif;\n  font-size: 16px;\n  word-break: keep-all;\n  @media screen and (min-width: ",
+              ";\n  font-family: 'NotoSans', sans-serif;\n  font-size: 16px;\n  text-align: center;\n  word-break: keep-all;\n  @media screen and (min-width: ",
               ') {\n    font-size: 25px;\n  }\n'
             ])),
           function (e) {
@@ -13677,13 +13684,7 @@
           },
           kn.MOBILE
         ),
-        Sa = function (e) {
-          var t = e.children,
-            n = Nn(e, wa);
-          return (0, En.jsx)(xa, In(In({}, n), {}, { children: t }));
-        },
-        ka = e.memo(Sa),
-        Ea = xn(ba)(
+        Ea = xn(Sa)(
           ur ||
             (ur = $e([
               '\n  min-height: 60px;\n  border-bottom: 1px solid ',
@@ -13691,7 +13692,10 @@
             ])),
           An.LIGHT_BORDER
         ),
-        Ca = xn(ka)(sr || (sr = $e(['\n  color: ', ';\n'])), An.BLACK),
+        Ca = xn(ka).attrs({ as: 'td' })(
+          sr || (sr = $e(['\n  color: ', ';\n'])),
+          An.BLACK
+        ),
         Oa = function (t) {
           var n = t.index,
             r = t.record,
@@ -13717,7 +13721,11 @@
           return (0, En.jsxs)(Ea, {
             children: [
               (0, En.jsx)(Ca, { children: c(n) }),
-              (0, En.jsx)(Ca, { flex: 4, children: a }),
+              (0, En.jsx)(Ca, {
+                flex: 4,
+                style: { minWidth: '100px', overflowWrap: 'break-word' },
+                children: a
+              }),
               (0, En.jsx)(Ca, { flex: 3, children: o }),
               (0, En.jsx)(Ca, { flex: 2, children: i }),
               (0, En.jsx)(Ca, { flex: 2, children: l })
@@ -13748,7 +13756,7 @@
               ';\n  cursor: ',
               ";\n  &::after {\n    content: '';\n    display: ",
               ';\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%)\n      ',
-              ';\n    width: 0;\n    height: 0;\n    margin-left: 5px;\n    border-right: 4px solid transparent;\n    border-left: 4px solid transparent;\n    border-top: 7px solid ',
+              ';\n    width: 0;\n    height: 0;\n    margin-left: 4px;\n    border-right: 4px solid transparent;\n    border-left: 4px solid transparent;\n    border-top: 7px solid ',
               ';\n  }\n'
             ])),
           function (e) {
@@ -13775,8 +13783,47 @@
             ])),
           kn.MOBILE
         ),
-        ja = function () {
-          var t = ee((0, e.useState)([]), 2),
+        ja = xn.tr(
+          hr ||
+            (hr = $e([
+              '\n  position: relative;\n  height: 100vh;\n  background-color: ',
+              ';\n'
+            ])),
+          An.WHITE
+        ),
+        Ra = (function (e) {
+          for (
+            var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
+            r < t;
+            r++
+          )
+            n[r - 1] = arguments[r];
+          var a = tn.apply(void 0, [e].concat(n)).join(''),
+            o = ln(a);
+          return new Kt(o, a);
+        })(
+          mr ||
+            (mr = $e([
+              '\n  0% {\n    transform: translate(-50%, -50%) rotate(0deg);\n  }\n  100% {\n    transform: translate(-50%, -50%) rotate(360deg);\n  }\n'
+            ]))
+        ),
+        Ia = xn.td(
+          gr ||
+            (gr = $e([
+              '\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 100px;\n  height: 100px;\n  border: 10px solid;\n  border-color: ',
+              ' transparent transparent transparent;\n  border-radius: 50%;\n  animation: ',
+              ' 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  animation-delay: ',
+              's;\n'
+            ])),
+          An.BLUE,
+          Ra,
+          function (e) {
+            var t = e.delay;
+            return null !== t && void 0 !== t ? t : 0;
+          }
+        ),
+        Na = function () {
+          var t = ee((0, e.useState)(null), 2),
             n = t[0],
             r = t[1];
           (0, e.useEffect)(function () {
@@ -13785,16 +13832,17 @@
                 return e.json();
               })
               .then(function (e) {
-                r(e);
+                return r(e);
               });
           }, []);
           var a = (0, e.useRef)('score'),
             o = (0, e.useRef)(!0),
             i = (0, e.useCallback)(function (e) {
               return function () {
-                a.current === e
-                  ? (o.current = !o.current)
-                  : ((a.current = e), (o.current = 'username' !== a.current)),
+                r(null),
+                  a.current === e
+                    ? (o.current = !o.current)
+                    : ((a.current = e), (o.current = 'username' !== a.current)),
                   fetch(
                     '/record?order='
                       .concat(a.current, '&isReverse=')
@@ -13811,7 +13859,7 @@
           return (0, En.jsxs)(_a, {
             children: [
               (0, En.jsx)(Pa, {
-                children: (0, En.jsxs)(ba, {
+                children: (0, En.jsxs)(Sa, {
                   children: [
                     (0, En.jsx)(La, { children: '\uc21c\uc704' }),
                     (0, En.jsx)(La, { flex: 4, children: '\uc774\ub984' }),
@@ -13843,129 +13891,137 @@
                 })
               }),
               (0, En.jsx)(Aa, {
-                records: n,
-                children: n.map(function (e, t) {
-                  return (0,
-                  En.jsx)(Ta, { index: t, record: e, length: n.length, reverse: o }, e._id);
-                })
+                children: n
+                  ? n.map(function (e, t) {
+                      return (0,
+                      En.jsx)(Ta, { index: t, record: e, length: n.length, reverse: o }, e._id);
+                    })
+                  : (0, En.jsxs)(ja, {
+                      children: [
+                        (0, En.jsx)(Ia, { delay: -0.45 }),
+                        (0, En.jsx)(Ia, { delay: -0.3 }),
+                        (0, En.jsx)(Ia, { delay: -0.15 }),
+                        (0, En.jsx)(Ia, {})
+                      ]
+                    })
               })
             ]
           });
         },
-        Ra = e.memo(ja),
-        Ia = xn.section(
-          hr ||
-            (hr = $e([
+        Ma = e.memo(Na),
+        Da = xn.section(
+          vr ||
+            (vr = $e([
               '\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 40px;\n  @media screen and (min-width: ',
               ') {\n    padding-top: 110px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        Na = xn.h1(
-          mr ||
-            (mr = $e([
+        za = xn.h1(
+          yr ||
+            (yr = $e([
               "\n  margin-bottom: 40px;\n  font-size: 60px;\n  font-family: 'Yeon-Sung', serif;\n  @media screen and (min-width: ",
               ') {\n    font-size: 90px;\n    margin-bottom: 60px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        Ma = xn(Er)(
-          gr ||
-            (gr = $e([
+        Fa = xn(Tr)(
+          br ||
+            (br = $e([
               '\n  margin-bottom: 30px;\n  @media screen and (min-width: ',
               ') {\n    margin-bottom: 40px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        Da = function () {
-          return (0, En.jsxs)(Ia, {
+        Ba = function () {
+          return (0, En.jsxs)(Da, {
             children: [
               (0, En.jsx)(J, {
                 children: (0, En.jsx)('title', {
                   children: '\uc21c\uc704\ud45c'
                 })
               }),
-              (0, En.jsx)(Na, { children: '\uc21c\uc704\ud45c' }),
+              (0, En.jsx)(za, { children: '\uc21c\uc704\ud45c' }),
               (0, En.jsx)(He, {
                 to: '/',
-                children: (0, En.jsx)(Ma, {
+                children: (0, En.jsx)(Fa, {
                   color: An.YELLOW,
                   spec: Ln.SMALL_BUTTON,
                   children: '\ud648\uc73c\ub85c'
                 })
               }),
-              (0, En.jsx)(Ra, {})
+              (0, En.jsx)(Ma, {})
             ]
           });
         },
-        za = e.memo(Da),
-        Fa = n(708),
-        Ba = xn.div(
-          vr ||
-            (vr = $e([
+        Ua = e.memo(Ba),
+        Ha = n(708),
+        $a = xn.div(
+          wr ||
+            (wr = $e([
               '\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n'
             ]))
         ),
-        Ua = xn.img(
-          yr ||
-            (yr = $e([
+        Wa = xn.img(
+          xr ||
+            (xr = $e([
               '\n  display: block;\n  width: 133px;\n  height: 174px;\n  @media screen and (min-width: ',
               ') {\n    width: 267px;\n    height: 348px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        Ha = xn.h2(
-          br ||
-            (br = $e([
+        Va = xn.h2(
+          Sr ||
+            (Sr = $e([
               '\n  font-size: 60px;\n  @media screen and (min-width: ',
               ') {\n    font-size: 90px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        $a = xn.p(
-          wr ||
-            (wr = $e([
+        Ka = xn.p(
+          kr ||
+            (kr = $e([
               '\n  font-size: 30px;\n  @media screen and (min-width: ',
               ') {\n    font-size: 55px;\n  }\n'
             ])),
           kn.MOBILE
         ),
-        Wa = function () {
-          return (0, En.jsxs)(Ba, {
+        Ya = function () {
+          return (0, En.jsxs)($a, {
             children: [
-              (0, En.jsx)(Ua, { src: Fa }),
-              (0, En.jsx)(Ha, { children: '404' }),
-              (0, En.jsx)($a, { children: 'Page Not Found' })
+              (0, En.jsx)(Wa, { src: Ha }),
+              (0, En.jsx)(Va, { children: '404' }),
+              (0, En.jsx)(Ka, { children: 'Page Not Found' })
             ]
           });
         },
-        Va = function () {
+        Ga = function () {
           return (0, En.jsx)(Ue, {
             children: (0, En.jsxs)(ve, {
               children: [
-                (0, En.jsx)(me, { path: '/', element: (0, En.jsx)($r, {}) }),
+                (0, En.jsx)(me, { path: '/', element: (0, En.jsx)(Kr, {}) }),
                 (0, En.jsx)(me, {
                   path: '/play',
-                  element: (0, En.jsx)(ga, {})
+                  element: (0, En.jsx)(ba, {})
                 }),
                 (0, En.jsx)(me, {
                   path: '/leaderboard',
-                  element: (0, En.jsx)(za, {})
+                  element: (0, En.jsx)(Ua, {})
                 }),
-                (0, En.jsx)(me, { path: '*', element: (0, En.jsx)(Wa, {}) })
+                (0, En.jsx)(me, { path: '*', element: (0, En.jsx)(Ya, {}) })
               ]
             })
           });
         },
-        Ka = function () {
-          return (0, En.jsx)(Va, {});
+        qa = function () {
+          return (0, En.jsx)(Ga, {});
         };
       t.render(
         (0, En.jsx)(e.StrictMode, {
-          children: (0, En.jsx)(W, { children: (0, En.jsx)(Ka, {}) })
+          children: (0, En.jsx)(W, { children: (0, En.jsx)(qa, {}) })
         }),
         document.getElementById('root')
       );
     })();
 })();
-//# sourceMappingURL=main.5a3fb82d.js.map
+//# sourceMappingURL=main.a8dbfc5b.js.map

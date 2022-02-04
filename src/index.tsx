@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import App from './App.jsx';
+import App from './App';
 import './styles/reset.css';
 import './styles/font.css';
 

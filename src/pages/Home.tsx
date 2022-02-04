@@ -1,13 +1,13 @@
+import React, { useState, ReactElement } from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Title from '../components/Title.jsx';
+import Title from '../components/Title';
 import SPEC from '../constants/spec';
 import COLOR from '../constants/color';
-import Button from '../components/Button.jsx';
-import Modal from '../components/modal/Modal.jsx';
-import RegisterModalContent from '../components/modal/RegisterModalContent.jsx';
-import ExplainModalContent from '../components/modal/ExplainModalContent.jsx';
+import Button from '../components/Button';
+import Modal from '../components/modal/Modal';
+import RegisterModalContent from '../components/modal/RegisterModalContent';
+import ExplainModalContent from '../components/modal/ExplainModalContent';
 
 const Container = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const ButtonSection = styled.section`
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [whichModal, setWhichModal] = useState(null);
+  const [whichModal, setWhichModal] = useState<ReactElement|null>(null);
   const ModalSelector = (elem) => {
     switch (elem) {
       case 'start':

@@ -1,6 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import gugu404 from '../assets/images/gugu404.png';
-import MEDIA_QUERY_END_POINT from '../constants/media-query.js';
+import MEDIA_QUERY_END_POINT from '../constants/media-query';
 
 const Container = styled.div`
   display: flex;

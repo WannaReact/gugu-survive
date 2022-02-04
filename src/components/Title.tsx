@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import pigeon from '../assets/images/pigeon.png';
 import MEDIA_QUERY_END_POINT from '../constants/media-query';

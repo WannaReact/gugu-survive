@@ -33,9 +33,9 @@ const RegisterInput = ({ gamerName, setGamerName, setIsDisabled }) => {
       setGamerName(char);
     }
     return;
-  });
+  }, []);
 
-  const validate = useCallback((name) => name.length > 1);
+  const validate = useCallback((name) => name.length > 1, []);
 
   const onInputChange = useCallback((e) => {
     let { value } = e.target;
@@ -47,7 +47,7 @@ const RegisterInput = ({ gamerName, setGamerName, setIsDisabled }) => {
     } else {
       setIsDisabled(true);
     }
-  });
+  }, []);
 
   return (
     <>

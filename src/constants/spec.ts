@@ -1,4 +1,8 @@
-const SPEC = {
+interface Spec {
+  [component:string]: object;
+}
+
+const SPEC: Spec = {
   CONTAINER: {
     MOBILE: { width: '390px' },
     DESKTOP: { width: '770px' }

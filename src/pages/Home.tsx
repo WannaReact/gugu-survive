@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Title from '../components/Title';
@@ -24,7 +24,7 @@ const ButtonSection = styled.section`
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [whichModal, setWhichModal] = useState(null);
+  const [whichModal, setWhichModal] = useState<ReactElement|null>(null);
   const ModalSelector = (elem) => {
     switch (elem) {
       case 'start':

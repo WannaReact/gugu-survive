@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 import MEDIA_QUERY_END_POINT from '../constants/media-query';
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ spec : any }>`
   width: ${({ spec }) => spec.MOBILE.width};
   height: ${({ spec }) => spec.MOBILE.height};
   border-radius: ${({ spec }) => spec.MOBILE.borderRadius};
